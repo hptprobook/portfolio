@@ -5,12 +5,18 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useSidebar } from '../context/SidebarContext';
 import {
+    AdminIcon,
+    BlogIcon,
     BoxCubeIcon,
     ChevronDownIcon,
     GridIcon,
     HorizontaLDots,
+    MessageIcon,
     PieChartIcon,
     PlugInIcon,
+    PortfolioIcon,
+    SettingIcon,
+    WebIcon,
 } from '../icons/index';
 
 type NavItem = {
@@ -24,39 +30,59 @@ const navItems: NavItem[] = [
     {
         icon: <GridIcon />,
         name: 'Dashboard',
-        subItems: [{ name: 'Ecommerce', path: '/admin', pro: false }],
+        path: '/admin',
+    },
+    {
+        icon: <SettingIcon />,
+        name: 'Analytics',
+        path: '/admin/analytics'
+    },
+    {
+        icon: <MessageIcon />,
+        name: 'Messages',
+        path: '/admin/messages'
+    },
+    {
+        icon: <BlogIcon />,
+        name: 'Blogs',
+        subItems: [
+            { name: 'List', path: '/admin/blogs/list', pro: false },
+            { name: 'Tags', path: '/admin/blogs/tags', pro: false },
+            { name: 'Crawl', path: '/admin/blogs/crawl', pro: false },
+        ]
     },
 ];
 
 const settingsItems: NavItem[] = [
     {
-        icon: <PieChartIcon />,
-        name: 'Charts',
+        icon: <AdminIcon />,
+        name: 'Administrators',
         subItems: [
-            { name: 'Line Chart', path: '/admin/line-chart', pro: false },
-            { name: 'Bar Chart', path: '/admin/bar-chart', pro: false },
+            { name: 'Users', path: '/admin/administrators/users', pro: false },
+            { name: 'Roles', path: '/admin/administrators/roles', pro: false },
+            { name: 'Permissions', path: '/admin/administrators/permissions', pro: false },
         ],
     },
     {
-        icon: <BoxCubeIcon />,
-        name: 'UI Elements',
+        icon: <PortfolioIcon />,
+        name: 'Portfolio',
         subItems: [
-            { name: 'Alerts', path: '/admin/alerts', pro: false },
-            { name: 'Avatar', path: '/admin/avatars', pro: false },
-            { name: 'Badge', path: '/admin/badge', pro: false },
-            { name: 'Buttons', path: '/admin/buttons', pro: false },
-            { name: 'Images', path: '/admin/images', pro: false },
-            { name: 'Videos', path: '/admin/videos', pro: false },
+            { name: 'Information', path: '/admin/portfolio/information', pro: false },
+            { name: 'Projects', path: '/admin/portfolio/projects', pro: false },
+            { name: 'Skills', path: '/admin/portfolio/skills', pro: false },
+            { name: 'Certifications', path: '/admin/portfolio/certifications', pro: false },
+            { name: 'Education', path: '/admin/portfolio/education', pro: false },
+            { name: 'Experience', path: '/admin/portfolio/experience', pro: false },
+            { name: 'Achievements', path: '/admin/portfolio/achievements', pro: false },
+            { name: 'References', path: '/admin/portfolio/references', pro: false },
         ],
     },
     {
-        icon: <PlugInIcon />,
-        name: 'Authentication',
-        subItems: [
-            { name: 'Sign In', path: '/admin/signin', pro: false },
-            { name: 'Sign Up', path: '/admin/signup', pro: false },
-        ],
+        icon: <WebIcon />,
+        name: 'Website Config',
+        path: '/admin/web-config',
     },
+    
 ];
 
 const AppSidebar: React.FC = () => {
@@ -121,7 +147,7 @@ const AppSidebar: React.FC = () => {
                     )}
                     {nav.subItems && (isExpanded || isHovered || isMobileOpen) && (
                         <div
-                            ref={(el) => {
+                            ref={(el: HTMLDivElement) => {
                                 subMenuRefs.current[`${menuType}-${index}`] = el;
                             }}
                             className="overflow-hidden transition-all duration-300"
