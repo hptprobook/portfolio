@@ -7,13 +7,10 @@ import { useSidebar } from '../context/SidebarContext';
 import {
     AdminIcon,
     BlogIcon,
-    BoxCubeIcon,
     ChevronDownIcon,
     GridIcon,
     HorizontaLDots,
     MessageIcon,
-    PieChartIcon,
-    PlugInIcon,
     PortfolioIcon,
     SettingIcon,
     WebIcon,
