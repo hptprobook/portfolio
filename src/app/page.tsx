@@ -1,252 +1,100 @@
-'use client';
-
-import { useEffect } from 'react';
-
-// Define types for the animation
-interface Point {
-  x: number;
-  y: number;
-  originX: number;
-  originY: number;
-  active?: number;
-  closest?: Point[];
-  circle?: Circle;
-}
-
-interface Target {
-  x: number;
-  y: number;
-}
-
-class Circle {
-  pos: Point;
-  radius: number;
-  color: string;
-  active: number = 0;
-
-  constructor(pos: Point, rad: number, color: string) {
-    this.pos = pos;
-    this.radius = rad;
-    this.color = color;
-  }
-
-  draw(ctx: CanvasRenderingContext2D): void {
-    if (!this.active) return;
-    ctx.beginPath();
-    ctx.arc(this.pos.x, this.pos.y, this.radius, 0, 2 * Math.PI, false);
-    ctx.fillStyle = `rgba(156,217,249,${this.active})`;
-    ctx.fill();
-  }
-}
+import MainBackground from "@/layouts/MainBackground/MainBackground";
 
 export default function Home() {
-  useEffect(() => {
-    let width: number, height: number, largeHeader: HTMLElement | null, canvas: HTMLCanvasElement | null, ctx: CanvasRenderingContext2D | null, points: Point[], target: Target, animateHeader = true;
-
-    // Main
-    initHeader();
-    initAnimation();
-    addListeners();
-
-    function initHeader(): void {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      target = { x: width / 2, y: height / 2 };
-
-      largeHeader = document.getElementById('large-header');
-      if (largeHeader) {
-        largeHeader.style.height = height + 'px';
-      }
-
-      canvas = document.getElementById('demo-canvas') as HTMLCanvasElement;
-      if (canvas) {
-        canvas.width = width;
-        canvas.height = height;
-        ctx = canvas.getContext('2d');
-      }
-
-      // create points
-      points = [];
-      for (let x = 0; x < width; x = x + width / 20) {
-        for (let y = 0; y < height; y = y + height / 20) {
-          const px = x + Math.random() * width / 20;
-          const py = y + Math.random() * height / 20;
-          const p: Point = { x: px, originX: px, y: py, originY: py };
-          points.push(p);
-        }
-      }
-
-      // for each point find the 5 closest points
-      for (let i = 0; i < points.length; i++) {
-        const closest: Point[] = [];
-        const p1 = points[i];
-        for (let j = 0; j < points.length; j++) {
-          const p2 = points[j];
-          if (!(p1 === p2)) {
-            let placed = false;
-            for (let k = 0; k < 5; k++) {
-              if (!placed) {
-                if (closest[k] === undefined) {
-                  closest[k] = p2;
-                  placed = true;
-                }
-              }
-            }
-
-            for (let k = 0; k < 5; k++) {
-              if (!placed) {
-                if (getDistance(p1, p2) < getDistance(p1, closest[k])) {
-                  closest[k] = p2;
-                  placed = true;
-                }
-              }
-            }
-          }
-        }
-        p1.closest = closest;
-      }
-
-      // assign a circle to each point
-      for (const point of points) {
-        const c = new Circle(point, 2 + Math.random() * 2, 'rgba(255,255,255,0.3)');
-        point.circle = c;
-      }
-    }
-
-    // Event handling
-    function addListeners(): void {
-      if (!('ontouchstart' in window)) {
-        window.addEventListener('mousemove', mouseMove);
-      }
-      window.addEventListener('scroll', scrollCheck);
-      window.addEventListener('resize', resize);
-    }
-
-    function mouseMove(e: MouseEvent): void {
-      let posx = 0, posy = 0;
-      if (e.pageX || e.pageY) {
-        posx = e.pageX;
-        posy = e.pageY;
-      } else if (e.clientX || e.clientY) {
-        posx = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-        posy = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-      }
-      target.x = posx;
-      target.y = posy;
-    }
-
-    function scrollCheck(): void {
-      if (document.body.scrollTop > height) animateHeader = false;
-      else animateHeader = true;
-    }
-
-    function resize(): void {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      if (largeHeader) {
-        largeHeader.style.height = height + 'px';
-      }
-      if (canvas) {
-        canvas.width = width;
-        canvas.height = height;
-      }
-    }
-
-    // animation
-    function initAnimation(): void {
-      animate();
-      for (const point of points) {
-        shiftPoint(point);
-      }
-    }
-
-    function animate(): void {
-      if (animateHeader && ctx) {
-        ctx.clearRect(0, 0, width, height);
-        for (const point of points) {
-          // detect points in range
-          if (Math.abs(getDistance(target, point)) < 4000) {
-            point.active = 0.3;
-            if (point.circle) point.circle.active = 0.6;
-          } else if (Math.abs(getDistance(target, point)) < 20000) {
-            point.active = 0.1;
-            if (point.circle) point.circle.active = 0.3;
-          } else if (Math.abs(getDistance(target, point)) < 40000) {
-            point.active = 0.02;
-            if (point.circle) point.circle.active = 0.1;
-          } else {
-            point.active = 0;
-            if (point.circle) point.circle.active = 0;
-          }
-
-          drawLines(point);
-          if (point.circle && ctx) {
-            point.circle.draw(ctx);
-          }
-        }
-      }
-      requestAnimationFrame(animate);
-    }
-
-    function shiftPoint(p: Point): void {
-      // Simple animation without TweenLite dependency
-      const duration = 1000 + Math.random() * 1000;
-      const startTime = Date.now();
-      const startX = p.x;
-      const startY = p.y;
-      const targetX = p.originX - 50 + Math.random() * 100;
-      const targetY = p.originY - 50 + Math.random() * 100;
-
-      function animatePoint(): void {
-        const elapsed = Date.now() - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        
-        // Easing function (simple ease-in-out)
-        const easing = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
-        
-        p.x = startX + (targetX - startX) * easing;
-        p.y = startY + (targetY - startY) * easing;
-
-        if (progress < 1) {
-          requestAnimationFrame(animatePoint);
-        } else {
-          shiftPoint(p);
-        }
-      }
-      animatePoint();
-    }
-
-    // Canvas manipulation
-    function drawLines(p: Point): void {
-      if (!p.active || !ctx || !p.closest) return;
-      for (const closestPoint of p.closest) {
-        ctx.beginPath();
-        ctx.moveTo(p.x, p.y);
-        ctx.lineTo(closestPoint.x, closestPoint.y);
-        ctx.strokeStyle = `rgba(156,217,249,${p.active})`;
-        ctx.stroke();
-      }
-    }
-
-    // Util
-    function getDistance(p1: Point | Target, p2: Point): number {
-      return Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2);
-    }
-
-    // Cleanup function
-    return () => {
-      window.removeEventListener('mousemove', mouseMove);
-      window.removeEventListener('scroll', scrollCheck);
-      window.removeEventListener('resize', resize);
-    };
-  }, []);
-
   return (
-    <div id="large-header" className="large-header">
-      <canvas id="demo-canvas"></canvas>
-      <h1 className="main-title">
-        TAO TÊN HOÁ
-      </h1>
+    <div className="min-h-screen bg-black text-white">
+      {/* Hero Section */}
+      <section id="home" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black to-gray-900">
+        <MainBackground />
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="py-20 px-4 min-h-screen flex items-center">
+        <div className="max-w-4xl mx-auto w-full">
+          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center text-white">About Me</h2>
+          <div className="bg-gray-900 p-8 rounded-lg border border-gray-700">
+            <p className="text-lg text-gray-300 leading-relaxed">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor 
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis 
+              nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Work Section */}
+      <section id="work" className="py-20 px-4 bg-gray-900/20 min-h-screen">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-white">My Work</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1, 2, 3, 4, 5, 6].map((item) => (
+              <div key={item} className="bg-gray-900 p-6 rounded-lg border border-gray-700 hover:shadow-lg hover:shadow-gray-900/50 transition-shadow duration-200">
+                <div className="h-40 bg-gray-800 rounded-lg mb-4"></div>
+                <h3 className="text-xl font-semibold mb-2 text-white">Project {item}</h3>
+                <p className="text-gray-400">
+                  Brief description of project {item} and the technologies used.
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Blog Section */}
+      <section id="blog" className="py-20 px-4 min-h-screen">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-white">Latest Blog Posts</h2>
+          <div className="space-y-8">
+            {[1, 2, 3].map((post) => (
+              <article key={post} className="bg-gray-900 p-6 rounded-lg border border-gray-700">
+                <h3 className="text-xl font-semibold mb-2 text-white">Blog Post Title {post}</h3>
+                <p className="text-gray-400 mb-4">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod 
+                  tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+                <a href="#" className="text-white hover:underline">Read more →</a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* More Section */}
+      <section id="more" className="py-20 px-4 bg-gray-900/20 min-h-screen flex items-center">
+        <div className="max-w-4xl mx-auto text-center w-full">
+          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-white">More About Me</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-gray-900 p-6 rounded-lg border border-gray-700">
+              <h3 className="text-xl font-semibold mb-4 text-white">Skills & Technologies</h3>
+              <p className="text-gray-400">
+                React, Next.js, TypeScript, Tailwind CSS, Node.js, and more.
+              </p>
+            </div>
+            <div className="bg-gray-900 p-6 rounded-lg border border-gray-700">
+              <h3 className="text-xl font-semibold mb-4 text-white">Experience</h3>
+              <p className="text-gray-400">
+                5+ years of experience building web applications and digital products.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-20 px-4 min-h-screen flex items-center">
+        <div className="max-w-4xl mx-auto text-center w-full">
+          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-white">Let&apos;s Work Together</h2>
+          <p className="text-xl text-gray-400 mb-8">
+            Ready to bring your ideas to life? Let&apos;s discuss your next project.
+          </p>
+          <a
+            href="mailto:hello@example.com"
+            className="bg-white text-black px-8 py-3 rounded-lg font-medium hover:bg-gray-200 transition-colors duration-200 inline-block"
+          >
+            Book a Call
+          </a>
+        </div>
+      </section>
     </div>
   );
 }

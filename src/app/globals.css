@@ -116,50 +116,37 @@
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
+  html {
+    scroll-behavior: smooth;
   }
-}
-
-/* Header */
-.large-header {
-	position: relative;
-	width: 100%;
-	background: #333;
-	overflow: hidden;
-	background-size: cover;
-	background-position: center center;
-	z-index: 1;
-}
-
-#large-header {
-	background-image: url('https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/img/demo-1-bg.jpg');
-}
-
-.main-title {
-	position: absolute;
-	margin: 0;
-	padding: 0;
-	color: #f9f1e9;
-	text-align: center;
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translate3d(-50%,-50%,0);
-	transform: translate3d(-50%,-50%,0);
-}
-
-.demo-1 .main-title {
-	text-transform: uppercase;
-	font-size: 4.2em;
-	letter-spacing: 0.1em;
-}
-
-.main-title .thin {
-	font-weight: 200;
-}
-
-@media only screen and (max-width : 768px) {
-	.demo-1 .main-title {
-		font-size: 3em;
-	}
+  body {
+    @apply bg-black text-white;
+    scroll-behavior: smooth;
+  }
+  
+  /* Mobile padding for bottom navigation */
+  @media (max-width: 768px) {
+    body {
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    
+    main {
+      padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px)); /* Space for bottom nav + safe area */
+    }
+    
+    /* Hide scrollbar on mobile for cleaner look */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    
+    /* Smooth transitions for touch interactions */
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+  }
+  
+  /* Safe area support for iOS */
+  .safe-area-inset-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
 }
