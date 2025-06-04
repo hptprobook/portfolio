@@ -1,9 +1,5 @@
-import MainBackground from "@/layouts/MainBackground/MainBackground";
+import Portfolio from '@/components/Portfolio/Portfolio';
 
 export default function Home() {
-  return (
-    <div className="min-h-screen bg-black text-white" id="home">
-      <MainBackground />
-    </div>
-  );
+  return <Portfolio />;
 }
