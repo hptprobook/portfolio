@@ -31,7 +31,10 @@ function TypingWord() {
     if (deleting && displayed.length === 0) {
       setDeleting(false);
       setWordIdx((i) => (i + 1) % WORDS.length);
+      return undefined;
     }
+
+    return undefined;
   }, [displayed, deleting, wordIdx]);
 
   return (

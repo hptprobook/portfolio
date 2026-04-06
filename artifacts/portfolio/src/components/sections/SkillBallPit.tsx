@@ -56,8 +56,10 @@ export default function SkillBallPit() {
     engineRef.current = engine;
 
     const T = 80;
-    const wallOpts: Matter.IBodyDefinition = {
-      isStatic: true, restitution: 0.4, friction: 0.1,
+    const wallOpts: Matter.IChamferableBodyDefinition = {
+      isStatic: true,
+      restitution: 0.4,
+      friction: 0.1,
       render: { visible: false },
     };
     Matter.World.add(engine.world, [

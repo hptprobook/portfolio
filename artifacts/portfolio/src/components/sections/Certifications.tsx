@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ExternalLink, BadgeCheck, Cloud } from "lucide-react";
+import type { IconType } from "react-icons";
 import {
   SiGooglecloud,
   SiMeta,
@@ -14,7 +15,7 @@ interface Certification {
   date: string;
   credentialId: string;
   credentialUrl: string;
-  Icon: React.ComponentType<{ size?: number; className?: string }>;
+  Icon: IconType;
   iconColor: string;
   bgColor: string;
 }
