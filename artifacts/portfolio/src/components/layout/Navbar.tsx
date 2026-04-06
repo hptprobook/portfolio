@@ -1,14 +1,14 @@
-import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
 
 const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#experience" },
-  { label: "Certifications", href: "#certifications" },
-  { label: "Contact", href: "#contact" },
+  { label: 'About', href: '#about' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Certifications', href: '#certifications' },
+  { label: 'Contact', href: '#contact' },
 ];
 
 export default function Navbar() {
@@ -20,19 +20,22 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
       setScrolled(scrollY > 40);
-      setProgress(docHeight > 0 ? Math.min(100, (scrollY / docHeight) * 100) : 0);
+      setProgress(
+        docHeight > 0 ? Math.min(100, (scrollY / docHeight) * 100) : 0,
+      );
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
     const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -44,23 +47,26 @@ export default function Navbar() {
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-background/80 backdrop-blur-xl border-b border-border/50"
-            : "bg-transparent"
+            ? 'bg-background/80 backdrop-blur-xl border-b border-border/50'
+            : 'bg-transparent'
         }`}
         data-testid="navbar"
       >
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <motion.a
             href="#"
-            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
             className="font-mono text-primary text-sm font-medium tracking-widest uppercase"
             whileHover={{ scale: 1.05 }}
             data-testid="nav-logo"
           >
-            &lt;AD /&gt;
+            &lt;HoaPhanDev /&gt;
           </motion.a>
 
-          <ul className="hidden md:flex items-center gap-8">
+          <ul className="hidden md:flex items-center gap-8 uppercase">
             {navLinks.map((link, i) => (
               <motion.li
                 key={link.href}
@@ -70,7 +76,10 @@ export default function Navbar() {
               >
                 <a
                   href={link.href}
-                  onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(link.href);
+                  }}
                   className="relative text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 group"
                   data-testid={`nav-link-${link.label.toLowerCase()}`}
                 >
@@ -83,9 +92,12 @@ export default function Navbar() {
 
           <motion.a
             href="#contact"
-            onClick={(e) => { e.preventDefault(); handleNavClick("#contact"); }}
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick('#contact');
+            }}
             className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full border border-primary/40 text-primary text-sm font-medium hover:bg-primary/10 transition-all duration-300"
-            whileHover={{ scale: 1.03, borderColor: "hsl(180 100% 50%)" }}
+            whileHover={{ scale: 1.03, borderColor: 'hsl(180 100% 50%)' }}
             whileTap={{ scale: 0.97 }}
             data-testid="nav-cta"
           >
@@ -102,17 +114,18 @@ export default function Navbar() {
         </div>
 
         {/* Scroll progress bar — fills left-to-right as page scrolls */}
-        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-border/30">
+        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-border/30">
           <motion.div
             className="h-full origin-left"
             style={{
-              background: "linear-gradient(to right, hsl(180 100% 50%), hsl(200 100% 60%), hsl(180 100% 50%))",
-              backgroundSize: "200% 100%",
-              boxShadow: "0 0 8px hsl(180 100% 50% / 0.7)",
+              background:
+                'linear-gradient(to right, hsl(180 100% 50%), hsl(200 100% 60%), hsl(180 100% 50%))',
+              backgroundSize: '200% 100%',
+              boxShadow: '0 0 8px hsl(180 100% 50% / 0.7)',
               width: `${progress}%`,
             }}
-            animate={{ backgroundPosition: ["0% 0%", "100% 0%", "0% 0%"] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+            animate={{ backgroundPosition: ['0% 0%', '100% 0%', '0% 0%'] }}
+            transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
           />
         </div>
       </motion.nav>
@@ -137,7 +150,10 @@ export default function Navbar() {
                 >
                   <a
                     href={link.href}
-                    onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(link.href);
+                    }}
                     className="text-2xl font-serif font-medium text-foreground hover:text-primary transition-colors"
                     data-testid={`nav-mobile-link-${link.label.toLowerCase()}`}
                   >

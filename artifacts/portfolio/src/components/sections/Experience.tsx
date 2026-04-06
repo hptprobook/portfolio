@@ -1,58 +1,50 @@
-import { useRef, useState, useEffect } from "react";
-import { motion, useInView } from "framer-motion";
-import { Briefcase, GraduationCap, Award } from "lucide-react";
+import { useRef, useState, useEffect } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { Briefcase, GraduationCap, Award } from 'lucide-react';
+import AegonaImg from '@/assets/images/aegona.jpg';
+import CuoiAgencyImg from '@/assets/images/cuoiagency.webp';
+import FptEduImg from '@/assets/images/fptedu.jpg';
 
 const timeline = [
   {
-    type: "work",
+    type: 'work',
     icon: Briefcase,
-    title: "Junior Fullstack Developer",
-    org: "Tech Startup — Remote",
-    period: "2024 — Present",
-    desc: "Building scalable web applications with React and NestJS. Implementing REST APIs, managing PostgreSQL databases, and collaborating in agile sprints.",
-    tags: ["React", "NestJS", "PostgreSQL", "TypeScript"],
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=360&fit=crop&auto=format&q=80",
-    imageAlt: "Developer coding at a laptop",
+    title: 'Junior Fullstack Developer',
+    org: 'Software Company - Aegona',
+    period: '2024 — Present',
+    desc: 'Building scalable web applications with Angular, React and NestJS. Implementing REST APIs, managing MySQL databases, and collaborating in agile sprints.',
+    tags: ['Angular', 'React', 'NestJS', 'MySQL', 'TypeScript'],
+    image: AegonaImg,
+    imageAlt: 'Developer coding at a laptop',
   },
   {
-    type: "work",
+    type: 'work',
     icon: Briefcase,
-    title: "Frontend Developer Intern",
-    org: "Digital Agency",
-    period: "2023 — 2024",
-    desc: "Developed responsive Angular applications, integrated third-party APIs, and improved load times by 40% through code optimization and lazy loading.",
-    tags: ["Angular", "JavaScript", "REST APIs", "SCSS"],
-    image: "https://images.unsplash.com/photo-1555099962-4199c345e5dd?w=600&h=360&fit=crop&auto=format&q=80",
-    imageAlt: "Colorful code on a monitor",
+    title: 'Fullstack Developer Intern',
+    org: 'Cuoi Agency',
+    period: '2024 — 2024',
+    desc: 'Developed responsive React applications, integrated third-party APIs, and improved load times by 40% through code optimization and lazy loading.',
+    tags: ['React', 'JavaScript', 'REST APIs'],
+    image: CuoiAgencyImg,
+    imageAlt: 'Colorful code on a monitor',
   },
   {
-    type: "edu",
+    type: 'edu',
     icon: GraduationCap,
-    title: "B.S. Computer Science",
-    org: "University — Class of 2023",
-    period: "2019 — 2023",
-    desc: "Focused on software engineering, algorithms, and web technologies. Built 10+ projects from full-stack apps to CLI tools.",
-    tags: ["Algorithms", "Data Structures", "Web Dev", "Databases"],
-    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&h=360&fit=crop&auto=format&q=80",
-    imageAlt: "University campus",
-  },
-  {
-    type: "award",
-    icon: Award,
-    title: "Hackathon Winner",
-    org: "National Code Sprint",
-    period: "2022",
-    desc: "Won 1st place by building a real-time collaborative coding platform in 48 hours using Node.js websockets and React.",
-    tags: ["Node.js", "React", "WebSockets"],
-    image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=360&fit=crop&auto=format&q=80",
-    imageAlt: "Team collaborating at a hackathon",
+    title: 'Website Developer & CS Student',
+    org: 'FPT Polytechnic — Tay Nguyen',
+    period: '2021 — 2023',
+    desc: 'Focused on software engineering, algorithms, and web technologies. Built 10+ projects from full-stack apps to CLI tools.',
+    tags: ['Algorithms', 'Data Structures', 'Web Dev', 'Databases'],
+    image: FptEduImg,
+    imageAlt: 'University campus',
   },
 ];
 
 export default function Experience() {
   const sectionRef = useRef<HTMLElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const inView = useInView(sectionRef, { once: true, margin: '-100px' });
   const [lineProgress, setLineProgress] = useState(0);
 
   useEffect(() => {
@@ -87,7 +79,9 @@ export default function Experience() {
         <div className="flex items-center gap-3 mb-4">
           <span className="text-primary font-mono text-sm">04.</span>
           <span className="h-px flex-1 max-w-15 bg-border" />
-          <span className="text-muted-foreground font-mono text-xs uppercase tracking-widest">Experience</span>
+          <span className="text-muted-foreground font-mono text-xs uppercase tracking-widest">
+            Experience
+          </span>
         </div>
 
         <motion.h2
@@ -102,7 +96,6 @@ export default function Experience() {
 
         {/* Timeline */}
         <div ref={timelineRef} className="relative">
-
           {/* Track (unfilled bg) */}
           <div className="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-border/30" />
 
@@ -111,8 +104,10 @@ export default function Experience() {
             className="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 w-px pointer-events-none"
             style={{
               height: `${lineProgress * 100}%`,
-              background: "linear-gradient(to bottom, hsl(180 100% 50% / 0.9), hsl(180 100% 50% / 0.3))",
-              boxShadow: "0 0 8px hsl(180 100% 50% / 0.6), 0 0 20px hsl(180 100% 50% / 0.2)",
+              background:
+                'linear-gradient(to bottom, hsl(180 100% 50% / 0.9), hsl(180 100% 50% / 0.3))',
+              boxShadow:
+                '0 0 8px hsl(180 100% 50% / 0.6), 0 0 20px hsl(180 100% 50% / 0.2)',
             }}
           />
 
@@ -148,13 +143,17 @@ export default function Experience() {
                             <h3 className="font-serif font-bold text-foreground text-lg group-hover:text-primary transition-colors">
                               {item.title}
                             </h3>
-                            <p className="text-sm text-muted-foreground mt-0.5">{item.org}</p>
+                            <p className="text-sm text-muted-foreground mt-0.5">
+                              {item.org}
+                            </p>
                           </div>
                           <span className="font-mono text-xs text-primary/70 whitespace-nowrap ml-4 mt-1">
                             {item.period}
                           </span>
                         </div>
-                        <p className="text-sm text-muted-foreground leading-relaxed mb-4">{item.desc}</p>
+                        <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                          {item.desc}
+                        </p>
                         <div className="flex flex-wrap gap-1.5">
                           {item.tags.map((tag) => (
                             <span
@@ -174,7 +173,12 @@ export default function Experience() {
                         animate={inView ? { opacity: 1, x: 0 } : {}}
                         transition={{ duration: 0.6, delay: i * 0.15 + 0.2 }}
                       >
-                        <img src={item.image} alt={item.imageAlt} className="w-full h-full object-cover" loading="lazy" />
+                        <img
+                          src={item.image}
+                          alt={item.imageAlt}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
                         <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />
                         <div className="absolute right-0 top-0 bottom-0 w-0.5 bg-primary/50" />
                       </motion.div>
@@ -186,18 +190,24 @@ export default function Experience() {
                     <div
                       className="w-7 h-7 rounded-full border-2 flex items-center justify-center transition-all duration-500"
                       style={{
-                        borderColor: isLit ? "hsl(180 100% 50%)" : "hsl(var(--border))",
-                        backgroundColor: isLit ? "hsl(180 100% 50% / 0.12)" : "hsl(var(--background))",
+                        borderColor: isLit
+                          ? 'hsl(180 100% 50%)'
+                          : 'hsl(var(--border))',
+                        backgroundColor: isLit
+                          ? 'hsl(180 100% 50% / 0.12)'
+                          : 'hsl(var(--background))',
                         boxShadow: isLit
-                          ? "0 0 12px hsl(180 100% 50% / 0.8), 0 0 28px hsl(180 100% 50% / 0.35)"
-                          : "none",
+                          ? '0 0 12px hsl(180 100% 50% / 0.8), 0 0 28px hsl(180 100% 50% / 0.35)'
+                          : 'none',
                       }}
                     >
                       <Icon
                         size={13}
                         style={{
-                          color: isLit ? "hsl(180 100% 50%)" : "hsl(var(--muted-foreground))",
-                          transition: "color 0.5s ease",
+                          color: isLit
+                            ? 'hsl(180 100% 50%)'
+                            : 'hsl(var(--muted-foreground))',
+                          transition: 'color 0.5s ease',
                         }}
                       />
                     </div>
@@ -217,13 +227,17 @@ export default function Experience() {
                             <h3 className="font-serif font-bold text-foreground text-lg group-hover:text-primary transition-colors">
                               {item.title}
                             </h3>
-                            <p className="text-sm text-muted-foreground mt-0.5">{item.org}</p>
+                            <p className="text-sm text-muted-foreground mt-0.5">
+                              {item.org}
+                            </p>
                           </div>
                           <span className="font-mono text-xs text-primary/70 whitespace-nowrap ml-4 mt-1">
                             {item.period}
                           </span>
                         </div>
-                        <p className="text-sm text-muted-foreground leading-relaxed mb-4">{item.desc}</p>
+                        <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                          {item.desc}
+                        </p>
                         <div className="flex flex-wrap gap-1.5">
                           {item.tags.map((tag) => (
                             <span
@@ -243,7 +257,12 @@ export default function Experience() {
                         animate={inView ? { opacity: 1, x: 0 } : {}}
                         transition={{ duration: 0.6, delay: i * 0.15 + 0.2 }}
                       >
-                        <img src={item.image} alt={item.imageAlt} className="w-full h-full object-cover" loading="lazy" />
+                        <img
+                          src={item.image}
+                          alt={item.imageAlt}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
                         <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />
                         <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-primary/50" />
                       </motion.div>

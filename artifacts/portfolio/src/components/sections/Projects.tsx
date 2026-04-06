@@ -1,6 +1,6 @@
-import { useRef, useState, useEffect } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
-import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
+import { useRef, useState, useEffect } from 'react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { ExternalLink, Github, ArrowUpRight } from 'lucide-react';
 import {
   SiReact,
   SiNestjs,
@@ -9,7 +9,11 @@ import {
   SiTypescript,
   SiPostgresql,
   SiMongodb,
-} from "react-icons/si";
+  SiMysql,
+} from 'react-icons/si';
+import Gamora from '@/assets/images/gamora.png';
+import VietArtSpace from '@/assets/images/vietartspace.png';
+import InAnhViet from '@/assets/images/inanhviet.png';
 
 interface TechItem {
   name: string;
@@ -29,71 +33,58 @@ interface Project {
 
 const projects: Project[] = [
   {
-    number: "01",
-    title: "TaskFlow Pro",
+    number: '01',
+    title: 'Booking Court Management System',
     description:
-      "A real-time project management platform with drag-and-drop boards, team collaboration, and analytics dashboards. Built with a NestJS microservices backend and React frontend.",
+      'A real-time project management platform with drag-and-drop boards, team collaboration, and analytics dashboards. Built with a NestJS microservices backend and React frontend.',
     stack: [
-      { name: "React", icon: SiReact },
-      { name: "NestJS", icon: SiNestjs },
-      { name: "PostgreSQL", icon: SiPostgresql },
-      { name: "TypeScript", icon: SiTypescript },
+      { name: 'Angular', icon: SiAngular },
+      { name: 'NestJS', icon: SiNestjs },
+      { name: 'MySQL', icon: SiMysql },
+      { name: 'TypeScript', icon: SiTypescript },
     ],
-    github: "https://github.com",
-    live: "https://example.com",
+    github: '',
+    live: '',
     featured: true,
-    image: "https://placehold.co/800x500/0f172a/94a3b8?text=TaskFlow+Pro",
+    image: Gamora,
   },
   {
-    number: "02",
-    title: "ShopSphere API",
+    number: '02',
+    title: 'Selling paintings website',
     description:
-      "RESTful e-commerce API with authentication, product catalog, cart management, and order processing. Handles 10k+ requests/minute with Redis caching and JWT auth.",
+      'A full-stack e-commerce platform for selling paintings online. Features include user authentication, product listings, shopping cart, and secure payment processing.',
     stack: [
-      { name: "Node.js", icon: SiNodedotjs },
-      { name: "MongoDB", icon: SiMongodb },
-      { name: "TypeScript", icon: SiTypescript },
+      { name: 'NestJS', icon: SiNestjs },
+      { name: 'MySQL', icon: SiMysql },
+      { name: 'TypeScript', icon: SiTypescript },
+      { name: 'Angular', icon: SiAngular },
     ],
-    github: "https://github.com",
-    live: "https://example.com",
+    github: '',
+    live: '',
     featured: true,
-    image: "https://placehold.co/800x500/0f172a/94a3b8?text=ShopSphere+API",
+    image: VietArtSpace,
   },
   {
-    number: "03",
-    title: "Angular Dashboard",
+    number: '03',
+    title: 'Print pictures website',
     description:
-      "Feature-rich enterprise admin dashboard with role-based access control, data visualization, and real-time notification system. Uses Angular Material and RxJS.",
+      'Feature-rich enterprise admin dashboard with role-based access control, data visualization, and real-time notification system. Uses Angular Material and RxJS.',
     stack: [
-      { name: "Angular", icon: SiAngular },
-      { name: "TypeScript", icon: SiTypescript },
-      { name: "Node.js", icon: SiNodedotjs },
+      { name: 'React', icon: SiReact },
+      { name: 'TypeScript', icon: SiTypescript },
+      { name: 'NestJS', icon: SiNestjs },
+      { name: 'MySQL', icon: SiMysql },
     ],
-    github: "https://github.com",
-    live: "https://example.com",
+    github: '',
+    live: '',
     featured: false,
-    image: "https://placehold.co/800x500/0f172a/94a3b8?text=Angular+Dashboard",
-  },
-  {
-    number: "04",
-    title: "DevConnect",
-    description:
-      "A social platform for developers to share projects, collaborate on code, and find teammates. WebSocket-powered chat and GitHub OAuth integration.",
-    stack: [
-      { name: "React", icon: SiReact },
-      { name: "NestJS", icon: SiNestjs },
-      { name: "PostgreSQL", icon: SiPostgresql },
-    ],
-    github: "https://github.com",
-    live: "https://example.com",
-    featured: false,
-    image: "https://placehold.co/800x500/0f172a/94a3b8?text=DevConnect",
+    image: InAnhViet,
   },
 ];
 
 export default function Projects() {
   const sectionRef = useRef<HTMLElement>(null);
-  const inView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const inView = useInView(sectionRef, { once: true, margin: '-100px' });
   const [activeIndex, setActiveIndex] = useState(0);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -159,7 +150,9 @@ export default function Projects() {
           {projects.map((project, i) => (
             <motion.div
               key={project.number}
-              ref={(el) => { itemRefs.current[i] = el; }}
+              ref={(el) => {
+                itemRefs.current[i] = el;
+              }}
               initial={{ opacity: 0, y: 40 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: i * 0.12 }}
@@ -167,7 +160,9 @@ export default function Projects() {
             >
               {/* Title row */}
               <div className="flex items-center gap-3 mb-4">
-                <span className="font-mono text-xs text-primary/60">{project.number}</span>
+                <span className="font-mono text-xs text-primary/60">
+                  {project.number}
+                </span>
                 <h3 className="text-xl md:text-2xl font-serif font-bold text-foreground">
                   {project.title}
                 </h3>
@@ -182,7 +177,7 @@ export default function Projects() {
               <motion.div
                 className="relative overflow-hidden rounded-xl border border-border/60 bg-card cursor-pointer"
                 whileHover={{ rotate: -2, scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
               >
                 <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent z-10 pointer-events-none" />
                 <img
@@ -227,7 +222,7 @@ export default function Projects() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
+                transition={{ duration: 0.35, ease: 'easeOut' }}
                 className="p-8 rounded-2xl border border-border/60 bg-card"
               >
                 {/* Progress dots */}
@@ -236,7 +231,7 @@ export default function Projects() {
                     <span
                       key={i}
                       className={`block h-1 rounded-full transition-all duration-300 ${
-                        i === activeIndex ? "w-8 bg-primary" : "w-3 bg-border"
+                        i === activeIndex ? 'w-8 bg-primary' : 'w-3 bg-border'
                       }`}
                     />
                   ))}

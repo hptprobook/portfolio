@@ -1,43 +1,59 @@
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import SkillBallPit from "./SkillBallPit";
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+import SkillBallPit from './SkillBallPit';
 import {
-  SiReact, SiAngular, SiNodedotjs, SiNestjs,
-  SiTypescript, SiJavascript, SiGit, SiPostgresql,
-  SiMongodb, SiDocker, SiTailwindcss, SiExpress
-} from "react-icons/si";
+  SiReact,
+  SiAngular,
+  SiNodedotjs,
+  SiNestjs,
+  SiTypescript,
+  SiJavascript,
+  SiGit,
+  SiPostgresql,
+  SiMongodb,
+  SiDocker,
+  SiTailwindcss,
+  SiExpress,
+  SiMysql,
+  SiJenkins,
+} from 'react-icons/si';
 
 const skillGroups = [
   {
-    category: "Frontend",
+    category: 'Frontend',
     items: [
-      { name: "React.js",    icon: SiReact,       color: "#61DAFB", level: 85 },
-      { name: "Angular",     icon: SiAngular,     color: "#DD0031", level: 75 },
-      { name: "TypeScript",  icon: SiTypescript,  color: "#3178C6", level: 82 },
-      { name: "Tailwind",    icon: SiTailwindcss, color: "#06B6D4", level: 90 },
+      { name: 'React.js', icon: SiReact, color: '#61DAFB', level: 85 },
+      { name: 'Angular', icon: SiAngular, color: '#DD0031', level: 80 },
+      { name: 'TypeScript', icon: SiTypescript, color: '#3178C6', level: 82 },
     ],
   },
   {
-    category: "Backend",
+    category: 'Backend',
     items: [
-      { name: "Node.js",    icon: SiNodedotjs,  color: "#339933", level: 83 },
-      { name: "NestJS",     icon: SiNestjs,     color: "#E0234E", level: 78 },
-      { name: "Express",    icon: SiExpress,    color: "#aaaaaa", level: 88 },
-      { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1", level: 72 },
+      { name: 'Node.js', icon: SiNodedotjs, color: '#339933', level: 83 },
+      { name: 'NestJS', icon: SiNestjs, color: '#E0234E', level: 78 },
+      { name: 'MYSQL', icon: SiMysql, color: '#4169E1', level: 88 },
     ],
   },
   {
-    category: "Tools & Infra",
+    category: 'Tools & Infra',
     items: [
-      { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E", level: 90 },
-      { name: "Git",        icon: SiGit,        color: "#F05032", level: 85 },
-      { name: "MongoDB",    icon: SiMongodb,    color: "#47A248", level: 68 },
-      { name: "Docker",     icon: SiDocker,     color: "#2496ED", level: 60 },
+      { name: 'Git', icon: SiGit, color: '#F05032', level: 85 },
+      { name: 'Jenkins', icon: SiJenkins, color: '#F2C037', level: 68 },
+      { name: 'Docker', icon: SiDocker, color: '#2496ED', level: 60 },
     ],
   },
 ];
 
-function SkillBar({ level, color, delay }: { level: number; color: string; delay: number }) {
+function SkillBar({
+  level,
+  color,
+  delay,
+}: {
+  level: number;
+  color: string;
+  delay: number;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
   return (
@@ -47,7 +63,7 @@ function SkillBar({ level, color, delay }: { level: number; color: string; delay
         style={{ backgroundColor: color, boxShadow: `0 0 6px ${color}80` }}
         initial={{ width: 0 }}
         animate={inView ? { width: `${level}%` } : { width: 0 }}
-        transition={{ duration: 1, delay, ease: "easeOut" }}
+        transition={{ duration: 1, delay, ease: 'easeOut' }}
       />
     </div>
   );
@@ -55,7 +71,7 @@ function SkillBar({ level, color, delay }: { level: number; color: string; delay
 
 export default function Skills() {
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const inView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
     <section
@@ -65,12 +81,13 @@ export default function Skills() {
       data-testid="section-skills"
     >
       <div className="max-w-6xl mx-auto">
-
         {/* Section header */}
         <div className="flex items-center gap-3 mb-4">
           <span className="text-primary font-mono text-sm">02.</span>
-          <span className="h-px flex-1 max-w-[60px] bg-border" />
-          <span className="text-muted-foreground font-mono text-xs uppercase tracking-widest">Skills</span>
+          <span className="h-px flex-1 max-w-15 bg-border" />
+          <span className="text-muted-foreground font-mono text-xs uppercase tracking-widest">
+            Skills
+          </span>
         </div>
 
         <motion.h2
@@ -89,7 +106,8 @@ export default function Skills() {
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 0.2 }}
         >
-          Move your mouse through the pit — the cursor pushes the bubbles around.
+          Move your mouse through the pit — the cursor pushes the bubbles
+          around.
         </motion.p>
 
         {/* Two-column layout: ball pit left, skill bars right */}
@@ -122,7 +140,7 @@ export default function Skills() {
                   <div
                     key={skill.name}
                     className="group"
-                    data-testid={`skill-${skill.name.toLowerCase().replace(/\./g, "").replace(/\s/g, "")}`}
+                    data-testid={`skill-${skill.name.toLowerCase().replace(/\./g, '').replace(/\s/g, '')}`}
                   >
                     <div className="flex items-center justify-between mb-1.5">
                       <div className="flex items-center gap-2.5">
@@ -131,9 +149,13 @@ export default function Skills() {
                           style={{ color: skill.color }}
                           className="transition-transform duration-300 group-hover:scale-125"
                         />
-                        <span className="text-sm text-foreground font-medium">{skill.name}</span>
+                        <span className="text-sm text-foreground font-medium">
+                          {skill.name}
+                        </span>
                       </div>
-                      <span className="text-xs font-mono text-muted-foreground">{skill.level}%</span>
+                      <span className="text-xs font-mono text-muted-foreground">
+                        {skill.level}%
+                      </span>
                     </div>
                     <SkillBar
                       level={skill.level}
@@ -146,7 +168,6 @@ export default function Skills() {
             ))}
           </div>
         </motion.div>
-
       </div>
     </section>
   );

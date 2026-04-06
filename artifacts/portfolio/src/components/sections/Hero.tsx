@@ -7,7 +7,7 @@ import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const WORDS = ['Fullstack', 'Frontend', 'Backend', 'React', 'NestJS'];
+const WORDS = ['Fullstack JavaScript', 'Angular', 'Next.js', 'React', 'NestJS'];
 
 function TypingWord() {
   const [wordIdx, setWordIdx] = useState(0);
@@ -243,7 +243,7 @@ export default function Hero() {
           className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold leading-tight tracking-tight mb-6 opacity-0"
           data-testid="hero-title"
         >
-          <span className="block text-foreground">Alex Dev</span>
+          <span className="block text-foreground">Hoa Phan Dev</span>
           <span className="block text-3xl md:text-5xl lg:text-6xl mt-2">
             <TypingWord /> Developer
           </span>
@@ -277,7 +277,7 @@ export default function Hero() {
             View My Work
           </motion.button>
           <motion.a
-            href="mailto:alex@example.com"
+            href="mailto:hoaphan14th2000@gmail.com"
             className="px-7 py-3.5 rounded-full border border-border text-foreground font-medium text-sm tracking-wide hover:border-primary/50 hover:text-primary transition-all duration-300"
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
@@ -289,9 +289,21 @@ export default function Hero() {
 
         <div className="flex items-center justify-center gap-5">
           {[
-            { icon: Github, href: 'https://github.com', label: 'GitHub' },
-            { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-            { icon: Mail, href: 'mailto:alex@example.com', label: 'Email' },
+            {
+              icon: Github,
+              href: 'https://github.com/hptprobook',
+              label: 'GitHub',
+            },
+            {
+              icon: Linkedin,
+              href: 'https://www.linkedin.com/in/phan-thanh-hoa-519920359/',
+              label: 'LinkedIn',
+            },
+            {
+              icon: Mail,
+              href: 'mailto:hoaphan14th2000@gmail.com',
+              label: 'Email',
+            },
           ].map(({ icon: Icon, href, label }) => (
             <motion.a
               key={label}

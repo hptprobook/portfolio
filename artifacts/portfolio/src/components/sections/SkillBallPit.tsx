@@ -8,11 +8,14 @@ import {
   SiTypescript,
   SiJavascript,
   SiGit,
-  SiPostgresql,
   SiMongodb,
   SiDocker,
   SiTailwindcss,
   SiExpress,
+  SiMysql,
+  SiJenkins,
+  SiPhp,
+  SiLaravel,
 } from 'react-icons/si';
 import type { IconType } from 'react-icons';
 
@@ -25,17 +28,20 @@ interface BallDef {
 
 const BALLS: BallDef[] = [
   { name: 'React', icon: SiReact, color: '#61DAFB', radius: 46 },
-  { name: 'Angular', icon: SiAngular, color: '#DD0031', radius: 42 },
-  { name: 'Node.js', icon: SiNodedotjs, color: '#339933', radius: 44 },
-  { name: 'NestJS', icon: SiNestjs, color: '#E0234E', radius: 42 },
-  { name: 'TypeScript', icon: SiTypescript, color: '#3178C6', radius: 48 },
+  { name: 'Angular', icon: SiAngular, color: '#DD0031', radius: 46 },
+  { name: 'Node.js', icon: SiNodedotjs, color: '#339933', radius: 46 },
+  { name: 'NestJS', icon: SiNestjs, color: '#E0234E', radius: 46 },
+  { name: 'TypeScript', icon: SiTypescript, color: '#3178C6', radius: 46 },
   { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E', radius: 46 },
-  { name: 'PostgreSQL', icon: SiPostgresql, color: '#4169E1', radius: 40 },
-  { name: 'MongoDB', icon: SiMongodb, color: '#47A248', radius: 38 },
-  { name: 'Express', icon: SiExpress, color: '#888888', radius: 38 },
-  { name: 'Tailwind', icon: SiTailwindcss, color: '#06B6D4', radius: 40 },
-  { name: 'Docker', icon: SiDocker, color: '#2496ED', radius: 38 },
-  { name: 'Git', icon: SiGit, color: '#F05032', radius: 38 },
+  { name: 'MySQL', icon: SiMysql, color: '#4169E1', radius: 46 },
+  { name: 'MongoDB', icon: SiMongodb, color: '#47A248', radius: 20 },
+  { name: 'Express', icon: SiExpress, color: '#888888', radius: 50 },
+  { name: 'Tailwind', icon: SiTailwindcss, color: '#06B6D4', radius: 46 },
+  { name: 'Docker', icon: SiDocker, color: '#2496ED', radius: 26 },
+  { name: 'Git', icon: SiGit, color: '#F05032', radius: 46 },
+  { name: 'PHP', icon: SiPhp, color: '#777BB4', radius: 12 },
+  { name: 'Laravel', icon: SiLaravel, color: '#FF2D20', radius: 12 },
+  { name: 'Jenkins', icon: SiJenkins, color: '#F2C037', radius: 18 },
 ];
 
 const PIT_HEIGHT = 500;
@@ -190,7 +196,7 @@ export default function SkillBallPit() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-b from-slate-900/80 to-slate-950/90"
+      className="relative w-full rounded-2xl overflow-hidden border border-white/10 bg-linear-to-b from-slate-900/80 to-slate-950/90"
       style={{ height: PIT_HEIGHT, cursor: 'none' }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -321,10 +327,6 @@ export default function SkillBallPit() {
           />
         </div>
       )}
-
-      <span className="absolute bottom-3 right-4 text-white/15 text-xs font-mono pointer-events-none select-none">
-        move mouse to push
-      </span>
     </div>
   );
 }
