@@ -1,11 +1,20 @@
-import { useEffect, useRef, useState, useCallback } from "react";
-import Matter from "matter-js";
+import { useEffect, useRef, useState, useCallback } from 'react';
+import Matter from 'matter-js';
 import {
-  SiReact, SiAngular, SiNodedotjs, SiNestjs,
-  SiTypescript, SiJavascript, SiGit, SiPostgresql,
-  SiMongodb, SiDocker, SiTailwindcss, SiExpress,
-} from "react-icons/si";
-import type { IconType } from "react-icons";
+  SiReact,
+  SiAngular,
+  SiNodedotjs,
+  SiNestjs,
+  SiTypescript,
+  SiJavascript,
+  SiGit,
+  SiPostgresql,
+  SiMongodb,
+  SiDocker,
+  SiTailwindcss,
+  SiExpress,
+} from 'react-icons/si';
+import type { IconType } from 'react-icons';
 
 interface BallDef {
   name: string;
@@ -15,18 +24,18 @@ interface BallDef {
 }
 
 const BALLS: BallDef[] = [
-  { name: "React",      icon: SiReact,       color: "#61DAFB", radius: 46 },
-  { name: "Angular",    icon: SiAngular,     color: "#DD0031", radius: 42 },
-  { name: "Node.js",    icon: SiNodedotjs,   color: "#339933", radius: 44 },
-  { name: "NestJS",     icon: SiNestjs,      color: "#E0234E", radius: 42 },
-  { name: "TypeScript", icon: SiTypescript,  color: "#3178C6", radius: 48 },
-  { name: "JavaScript", icon: SiJavascript,  color: "#F7DF1E", radius: 46 },
-  { name: "PostgreSQL", icon: SiPostgresql,  color: "#4169E1", radius: 40 },
-  { name: "MongoDB",    icon: SiMongodb,     color: "#47A248", radius: 38 },
-  { name: "Express",    icon: SiExpress,     color: "#888888", radius: 38 },
-  { name: "Tailwind",   icon: SiTailwindcss, color: "#06B6D4", radius: 40 },
-  { name: "Docker",     icon: SiDocker,      color: "#2496ED", radius: 38 },
-  { name: "Git",        icon: SiGit,         color: "#F05032", radius: 38 },
+  { name: 'React', icon: SiReact, color: '#61DAFB', radius: 46 },
+  { name: 'Angular', icon: SiAngular, color: '#DD0031', radius: 42 },
+  { name: 'Node.js', icon: SiNodedotjs, color: '#339933', radius: 44 },
+  { name: 'NestJS', icon: SiNestjs, color: '#E0234E', radius: 42 },
+  { name: 'TypeScript', icon: SiTypescript, color: '#3178C6', radius: 48 },
+  { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E', radius: 46 },
+  { name: 'PostgreSQL', icon: SiPostgresql, color: '#4169E1', radius: 40 },
+  { name: 'MongoDB', icon: SiMongodb, color: '#47A248', radius: 38 },
+  { name: 'Express', icon: SiExpress, color: '#888888', radius: 38 },
+  { name: 'Tailwind', icon: SiTailwindcss, color: '#06B6D4', radius: 40 },
+  { name: 'Docker', icon: SiDocker, color: '#2496ED', radius: 38 },
+  { name: 'Git', icon: SiGit, color: '#F05032', radius: 38 },
 ];
 
 const PIT_HEIGHT = 500;
@@ -41,7 +50,9 @@ export default function SkillBallPit() {
   const rafRef = useRef<number>(0);
   const mouseRef = useRef({ x: -999, y: -999, prevX: -999, prevY: -999 });
 
-  const [positions, setPositions] = useState<{ x: number; y: number; angle: number }[]>([]);
+  const [positions, setPositions] = useState<
+    { x: number; y: number; angle: number }[]
+  >([]);
   const [cursorPos, setCursorPos] = useState({ x: -999, y: -999 });
 
   const getWidth = useCallback(() => {
@@ -63,9 +74,27 @@ export default function SkillBallPit() {
       render: { visible: false },
     };
     Matter.World.add(engine.world, [
-      Matter.Bodies.rectangle(width / 2, PIT_HEIGHT + T / 2, width * 3, T, wallOpts),
-      Matter.Bodies.rectangle(-T / 2, PIT_HEIGHT / 2, T, PIT_HEIGHT * 4, wallOpts),
-      Matter.Bodies.rectangle(width + T / 2, PIT_HEIGHT / 2, T, PIT_HEIGHT * 4, wallOpts),
+      Matter.Bodies.rectangle(
+        width / 2,
+        PIT_HEIGHT + T / 2,
+        width * 3,
+        T,
+        wallOpts,
+      ),
+      Matter.Bodies.rectangle(
+        -T / 2,
+        PIT_HEIGHT / 2,
+        T,
+        PIT_HEIGHT * 4,
+        wallOpts,
+      ),
+      Matter.Bodies.rectangle(
+        width + T / 2,
+        PIT_HEIGHT / 2,
+        T,
+        PIT_HEIGHT * 4,
+        wallOpts,
+      ),
     ]);
 
     // Cursor body — high-mass kinematic body that follows the mouse
@@ -75,7 +104,7 @@ export default function SkillBallPit() {
       frictionAir: 1,
       restitution: 0.6,
       density: 10,
-      label: "cursor",
+      label: 'cursor',
     });
     Matter.Body.setMass(cursor, 80);
     cursorBodyRef.current = cursor;
@@ -99,7 +128,7 @@ export default function SkillBallPit() {
           density: 0.0015,
           collisionFilter: { category: 0x0001, mask: 0x0001 | 0x0002 },
           label: String(i),
-        }
+        },
       );
       Matter.Body.setVelocity(body, { x: (Math.random() - 0.5) * 4, y: 1 });
       return body;
@@ -124,7 +153,11 @@ export default function SkillBallPit() {
       mouseRef.current.prevY = y;
 
       setPositions(
-        bodies.map((b) => ({ x: b.position.x, y: b.position.y, angle: b.angle }))
+        bodies.map((b) => ({
+          x: b.position.x,
+          y: b.position.y,
+          angle: b.angle,
+        })),
       );
       setCursorPos({ x, y });
 
@@ -158,7 +191,7 @@ export default function SkillBallPit() {
     <div
       ref={containerRef}
       className="relative w-full rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-b from-slate-900/80 to-slate-950/90"
-      style={{ height: PIT_HEIGHT, cursor: "none" }}
+      style={{ height: PIT_HEIGHT, cursor: 'none' }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       data-testid="skills-ballpit"
@@ -168,8 +201,8 @@ export default function SkillBallPit() {
         className="absolute inset-0 opacity-[0.04] pointer-events-none"
         style={{
           backgroundImage:
-            "linear-gradient(to right, #fff 1px, transparent 1px), linear-gradient(to bottom, #fff 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
+            'linear-gradient(to right, #fff 1px, transparent 1px), linear-gradient(to bottom, #fff 1px, transparent 1px)',
+          backgroundSize: '40px 40px',
         }}
       />
 
@@ -178,7 +211,7 @@ export default function SkillBallPit() {
         const ball = BALLS[idx];
         const Icon = ball.icon;
         const r = ball.radius;
-        const isGold = ball.color === "#F7DF1E";
+        const isGold = ball.color === '#F7DF1E';
 
         return (
           <div
@@ -190,7 +223,7 @@ export default function SkillBallPit() {
               width: r * 2,
               height: r * 2,
             }}
-            data-testid={`ball-${ball.name.toLowerCase().replace(/[\s.]/g, "")}`}
+            data-testid={`ball-${ball.name.toLowerCase().replace(/[\s.]/g, '')}`}
           >
             {/* Bubble shell */}
             <div
@@ -210,21 +243,21 @@ export default function SkillBallPit() {
                   inset 0 -2px 6px ${ball.color}30,
                   inset 0 2px 8px rgba(255,255,255,0.25)
                 `,
-                backdropFilter: "blur(2px)",
+                backdropFilter: 'blur(2px)',
               }}
             />
             {/* Specular highlight */}
             <div
               className="absolute rounded-full"
               style={{
-                top: "12%",
-                left: "20%",
-                width: "30%",
-                height: "18%",
+                top: '12%',
+                left: '20%',
+                width: '30%',
+                height: '18%',
                 background:
-                  "radial-gradient(ellipse, rgba(255,255,255,0.75) 0%, transparent 100%)",
-                transform: "rotate(-30deg)",
-                filter: "blur(1px)",
+                  'radial-gradient(ellipse, rgba(255,255,255,0.75) 0%, transparent 100%)',
+                transform: 'rotate(-30deg)',
+                filter: 'blur(1px)',
               }}
             />
             {/* Icon + label */}
@@ -235,7 +268,7 @@ export default function SkillBallPit() {
               <Icon
                 size={r * 0.48}
                 style={{
-                  color: isGold ? "#7a6700" : ball.color,
+                  color: isGold ? '#7a6700' : ball.color,
                   filter: `drop-shadow(0 0 6px ${ball.color}cc)`,
                 }}
               />
@@ -243,8 +276,8 @@ export default function SkillBallPit() {
                 className="font-mono font-bold leading-none mt-1 pointer-events-none"
                 style={{
                   fontSize: Math.max(8, r * 0.2),
-                  color: isGold ? "#5a4d00" : "rgba(255,255,255,0.9)",
-                  textShadow: isGold ? "none" : `0 1px 3px rgba(0,0,0,0.8)`,
+                  color: isGold ? '#5a4d00' : 'rgba(255,255,255,0.9)',
+                  textShadow: isGold ? 'none' : `0 1px 3px rgba(0,0,0,0.8)`,
                 }}
               >
                 {ball.name}
@@ -269,16 +302,22 @@ export default function SkillBallPit() {
             className="absolute inset-0 rounded-full"
             style={{
               background:
-                "radial-gradient(circle at 38% 32%, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.03) 60%, transparent 100%)",
-              border: "1.5px solid rgba(255,255,255,0.3)",
+                'radial-gradient(circle at 38% 32%, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.03) 60%, transparent 100%)',
+              border: '1.5px solid rgba(255,255,255,0.3)',
               boxShadow:
-                "0 0 12px rgba(255,255,255,0.08), inset 0 1px 4px rgba(255,255,255,0.2)",
+                '0 0 12px rgba(255,255,255,0.08), inset 0 1px 4px rgba(255,255,255,0.2)',
             }}
           />
           {/* Small cross-hair dot */}
           <div
             className="absolute rounded-full bg-white/60"
-            style={{ width: 4, height: 4, top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
+            style={{
+              width: 4,
+              height: 4,
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+            }}
           />
         </div>
       )}
