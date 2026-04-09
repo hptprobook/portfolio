@@ -1,86 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github, ArrowUpRight } from 'lucide-react';
-import {
-  SiReact,
-  SiNestjs,
-  SiNodedotjs,
-  SiAngular,
-  SiTypescript,
-  SiPostgresql,
-  SiMongodb,
-  SiMysql,
-} from 'react-icons/si';
-import Gamora from '@/assets/images/gamora.png';
-import VietArtSpace from '@/assets/images/vietartspace.png';
-import InAnhViet from '@/assets/images/inanhviet.png';
-
-interface TechItem {
-  name: string;
-  icon: React.ComponentType<{ size?: number; className?: string }>;
-}
-
-interface Project {
-  number: string;
-  title: string;
-  description: string;
-  stack: TechItem[];
-  github: string;
-  live: string;
-  featured: boolean;
-  image: string;
-}
-
-const projects: Project[] = [
-  {
-    number: '01',
-    title: 'Booking Court Management System',
-    description:
-      'A real-time project management platform with drag-and-drop boards, team collaboration, and analytics dashboards. Built with a NestJS microservices backend and React frontend.',
-    stack: [
-      { name: 'Angular', icon: SiAngular },
-      { name: 'NestJS', icon: SiNestjs },
-      { name: 'MySQL', icon: SiMysql },
-      { name: 'TypeScript', icon: SiTypescript },
-    ],
-    github: '',
-    live: '',
-    featured: true,
-    image: Gamora,
-  },
-  {
-    number: '02',
-    title: 'Selling paintings website',
-    description:
-      'A full-stack e-commerce platform for selling paintings online. Features include user authentication, product listings, shopping cart, and secure payment processing.',
-    stack: [
-      { name: 'NestJS', icon: SiNestjs },
-      { name: 'MySQL', icon: SiMysql },
-      { name: 'TypeScript', icon: SiTypescript },
-      { name: 'Angular', icon: SiAngular },
-    ],
-    github: '',
-    live: '',
-    featured: true,
-    image: VietArtSpace,
-  },
-  {
-    number: '03',
-    title: 'Print pictures website',
-    description:
-      'Feature-rich enterprise admin dashboard with role-based access control, data visualization, and real-time notification system. Uses Angular Material and RxJS.',
-    stack: [
-      { name: 'React', icon: SiReact },
-      { name: 'TypeScript', icon: SiTypescript },
-      { name: 'NestJS', icon: SiNestjs },
-      { name: 'MySQL', icon: SiMysql },
-    ],
-    github: '',
-    live: '',
-    featured: false,
-    image: InAnhViet,
-  },
-];
+import { projects } from '@/data/projects';
 
 export default function Projects() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -262,32 +183,6 @@ export default function Projects() {
                       </span>
                     </div>
                   ))}
-                </div>
-
-                {/* Action links */}
-                <div className="flex items-center gap-3">
-                  <motion.a
-                    href={active.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 rounded-lg border border-border/60 text-muted-foreground hover:text-foreground hover:border-border transition-colors"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    data-testid={`project-${activeIndex}-github`}
-                  >
-                    <Github size={18} />
-                  </motion.a>
-                  <motion.a
-                    href={active.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 px-4 py-2 rounded-lg border border-primary/30 text-primary text-sm font-medium hover:bg-primary/10 transition-colors"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    data-testid={`project-${activeIndex}-live`}
-                  >
-                    View Live <ArrowUpRight size={14} />
-                  </motion.a>
                 </div>
               </motion.div>
             </AnimatePresence>
