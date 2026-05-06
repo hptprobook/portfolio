@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Lenis from "lenis";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
+import { PortfolioProvider } from "@/lib/portfolio-context";
 
 function Router() {
   return (
@@ -17,9 +18,6 @@ function Router() {
 
 function App() {
   useEffect(() => {
-    // Force dark mode on
-    document.documentElement.classList.add("dark");
-
     // Initialize Lenis for smooth scrolling
     const lenis = new Lenis({
       duration: 1.2,
@@ -44,9 +42,11 @@ function App() {
 
   return (
     <TooltipProvider>
-      <WouterRouter>
-        <Router />
-      </WouterRouter>
+      <PortfolioProvider>
+        <WouterRouter>
+          <Router />
+        </WouterRouter>
+      </PortfolioProvider>
       <Toaster />
     </TooltipProvider>
   );

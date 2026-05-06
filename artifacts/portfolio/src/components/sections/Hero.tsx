@@ -3,19 +3,26 @@ import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
+import { ArrowDown, Download, Github, Linkedin, Mail } from 'lucide-react';
+import { usePortfolio } from '@/lib/portfolio-context';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const WORDS = ['Fullstack JavaScript', 'Angular', 'Next.js', 'React', 'NestJS'];
-
-function TypingWord() {
+function TypingWord({ words }: { words: string[] }) {
   const [wordIdx, setWordIdx] = useState(0);
   const [displayed, setDisplayed] = useState('');
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    const word = WORDS[wordIdx];
+    setWordIdx(0);
+    setDisplayed('');
+    setDeleting(false);
+  }, [words]);
+
+  useEffect(() => {
+    const word = words[wordIdx] ?? words[0] ?? '';
+    if (!word) return undefined;
+
     if (!deleting && displayed.length < word.length) {
       const t = setTimeout(
         () => setDisplayed(word.slice(0, displayed.length + 1)),
@@ -33,12 +40,12 @@ function TypingWord() {
     }
     if (deleting && displayed.length === 0) {
       setDeleting(false);
-      setWordIdx((i) => (i + 1) % WORDS.length);
+      setWordIdx((i) => (i + 1) % words.length);
       return undefined;
     }
 
     return undefined;
-  }, [displayed, deleting, wordIdx]);
+  }, [displayed, deleting, wordIdx, words]);
 
   return (
     <span className="gradient-text text-glow">
@@ -48,21 +55,9 @@ function TypingWord() {
   );
 }
 
-const codeSnippets = [
-  { code: "const dev = 'Alex';", x: '5%', y: '20%', delay: 0, depth: 0.4 },
-  { code: 'npm run build', x: '75%', y: '15%', delay: 0.3, depth: 0.6 },
-  { code: '@nestjs/core', x: '80%', y: '60%', delay: 0.6, depth: 0.3 },
-  {
-    code: "import React from 'react'",
-    x: '2%',
-    y: '70%',
-    delay: 0.9,
-    depth: 0.5,
-  },
-  { code: 'git push origin main', x: '60%', y: '80%', delay: 1.2, depth: 0.7 },
-];
-
 export default function Hero() {
+  const { content } = usePortfolio();
+  const { profile, hero } = content;
   const containerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
@@ -72,8 +67,6 @@ export default function Hero() {
   const contentRef = useRef<HTMLDivElement>(null);
   const snippetRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  // Mouse parallax via RAF — uses GSAP quickSetter on `x` only,
-  // leaving `y` free for ScrollTrigger scroll parallax.
   useEffect(() => {
     const setters = snippetRefs.current.map((el) =>
       el ? gsap.quickSetter(el, 'x', 'px') : null,
@@ -92,7 +85,7 @@ export default function Hero() {
 
     const tick = () => {
       currentX += (targetX - currentX) * 0.07;
-      setters.forEach((set, i) => set?.(currentX * codeSnippets[i].depth));
+      setters.forEach((set, i) => set?.(currentX * hero.snippets[i].depth));
       bgSetter?.(currentX * 0.15);
       rafId = requestAnimationFrame(tick);
     };
@@ -103,11 +96,19 @@ export default function Hero() {
       window.removeEventListener('mousemove', onMouseMove);
       cancelAnimationFrame(rafId);
     };
-  }, []);
+  }, [hero.snippets]);
 
   useGSAP(
     () => {
-      // Entrance animation
+      if (
+        !titleRef.current ||
+        !subtitleRef.current ||
+        !ctaRef.current ||
+        !scrollRef.current
+      ) {
+        return;
+      }
+
       const tl = gsap.timeline({ delay: 0.2 });
       tl.fromTo(
         titleRef.current,
@@ -116,14 +117,14 @@ export default function Hero() {
       )
         .fromTo(
           subtitleRef.current,
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
+          { y: 30 },
+          { y: 0, duration: 0.8, ease: 'power3.out' },
           '-=0.5',
         )
         .fromTo(
           ctaRef.current,
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' },
+          { y: 20 },
+          { y: 0, duration: 0.7, ease: 'power3.out' },
           '-=0.4',
         )
         .fromTo(
@@ -141,7 +142,6 @@ export default function Hero() {
         ease: 'sine.inOut',
       });
 
-      // Scroll parallax — content drifts up
       gsap.to(contentRef.current, {
         y: -120,
         ease: 'none',
@@ -153,7 +153,6 @@ export default function Hero() {
         },
       });
 
-      // Background drifts down (opposite direction = depth)
       gsap.to(bgGradientRef.current, {
         y: 80,
         ease: 'none',
@@ -165,11 +164,10 @@ export default function Hero() {
         },
       });
 
-      // Each snippet scrolls at its own depth via y
       snippetRefs.current.forEach((el, i) => {
         if (!el) return;
         gsap.to(el, {
-          y: -(80 * codeSnippets[i].depth),
+          y: -(80 * hero.snippets[i].depth),
           ease: 'none',
           scrollTrigger: {
             trigger: containerRef.current,
@@ -194,16 +192,14 @@ export default function Hero() {
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
       data-testid="section-hero"
     >
-      {/* Parallax background layers */}
       <div ref={bgGradientRef} className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-linear-to-b from-primary/5 via-transparent to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_20%,hsla(180,100%,50%,0.08),transparent_60%)]" />
+          <div className="absolute inset-0 bg-linear-to-b from-primary/8 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_20%,hsla(180,100%,50%,0.1),transparent_60%)]" />
       </div>
 
-      {/* Code snippets — x: mouse parallax, y: scroll parallax (both via GSAP) */}
-      {codeSnippets.map((s, i) => (
+      {hero.snippets.map((s, i) => (
         <motion.div
-          key={i}
+          key={s.code}
           ref={(el) => {
             snippetRefs.current[i] = el;
           }}
@@ -222,7 +218,6 @@ export default function Hero() {
         </motion.div>
       ))}
 
-      {/* Main content */}
       <div
         ref={contentRef}
         className="relative z-10 text-center px-6 max-w-5xl mx-auto"
@@ -235,7 +230,7 @@ export default function Hero() {
           data-testid="hero-badge"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-          Available for hire
+          {hero.badge}
         </motion.div>
 
         <h1
@@ -243,24 +238,23 @@ export default function Hero() {
           className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold leading-tight tracking-tight mb-6 opacity-0"
           data-testid="hero-title"
         >
-          <span className="block text-foreground">Hoa Phan Dev</span>
+          <span className="block text-foreground">{profile.name}</span>
           <span className="block text-3xl md:text-5xl lg:text-6xl mt-2">
-            <TypingWord /> Developer
+            <TypingWord words={hero.words} /> {hero.titleSuffix}
           </span>
         </h1>
 
         <p
           ref={subtitleRef}
-          className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10 opacity-0 leading-relaxed"
+          className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
           data-testid="hero-subtitle"
         >
-          Building high-performance web apps with React, Angular, Node.js, and
-          NestJS. Crafting clean code and exceptional user experiences.
+          {hero.subtitle}
         </p>
 
         <div
           ref={ctaRef}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 opacity-0"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
           data-testid="hero-cta"
         >
           <motion.button
@@ -274,16 +268,32 @@ export default function Hero() {
             whileTap={{ scale: 0.96 }}
             data-testid="btn-view-projects"
           >
-            View My Work
+            {hero.primaryCta}
           </motion.button>
           <motion.a
-            href="mailto:hoaphan14th2000@gmail.com"
+            href="#contact"
+            onClick={(e) => {
+              e.preventDefault();
+              document
+                .querySelector('#contact')
+                ?.scrollIntoView({ behavior: 'smooth' });
+            }}
             className="px-7 py-3.5 rounded-full border border-border text-foreground font-medium text-sm tracking-wide hover:border-primary/50 hover:text-primary transition-all duration-300"
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
             data-testid="btn-contact"
           >
-            Get in Touch
+            {hero.secondaryCta}
+          </motion.a>
+          <motion.a
+            href={profile.cvUrl}
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-primary/40 text-primary font-medium text-sm tracking-wide hover:bg-primary/10 transition-all duration-300"
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
+            data-testid="btn-download-cv"
+          >
+            <Download size={16} />
+            {hero.cvCta}
           </motion.a>
         </div>
 
@@ -291,24 +301,24 @@ export default function Hero() {
           {[
             {
               icon: Github,
-              href: 'https://github.com/hptprobook',
+              href: profile.github,
               label: 'GitHub',
             },
             {
               icon: Linkedin,
-              href: 'https://www.linkedin.com/in/phan-thanh-hoa-519920359/',
+              href: profile.linkedin,
               label: 'LinkedIn',
             },
             {
               icon: Mail,
-              href: 'mailto:hoaphan14th2000@gmail.com',
+              href: `mailto:${profile.email}`,
               label: 'Email',
             },
           ].map(({ icon: Icon, href, label }) => (
             <motion.a
               key={label}
               href={href}
-              target="_blank"
+              target={href.startsWith('mailto:') ? undefined : '_blank'}
               rel="noopener noreferrer"
               className="p-2.5 rounded-full border border-border/60 text-muted-foreground hover:text-primary hover:border-primary/40 transition-all duration-300"
               whileHover={{ scale: 1.15, y: -2 }}
@@ -328,7 +338,7 @@ export default function Hero() {
         data-testid="hero-scroll-indicator"
       >
         <span className="text-muted-foreground text-xs font-mono tracking-widest uppercase">
-          scroll
+          {hero.scroll}
         </span>
         <ArrowDown size={16} className="text-primary" />
       </div>

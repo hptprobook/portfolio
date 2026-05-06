@@ -1,20 +1,40 @@
-import { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
-import { Mail, MapPin, Github, Linkedin, Send, CheckCircle } from "lucide-react";
+import { useRef, useState, type ChangeEvent, type FormEvent } from 'react';
+import { motion, useInView } from 'framer-motion';
+import {
+  CheckCircle,
+  Github,
+  Globe,
+  Linkedin,
+  Mail,
+  MapPin,
+  Phone,
+  Send,
+} from 'lucide-react';
+import { usePortfolio } from '@/lib/portfolio-context';
 
 export default function Contact() {
+  const { content } = usePortfolio();
+  const { profile, contact } = content;
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const inView = useInView(ref, { once: true, margin: '-100px' });
   const [sent, setSent] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({ name: '', email: '', message: '' });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    const subject = encodeURIComponent(`Portfolio contact - ${form.name}`);
+    const body = encodeURIComponent(
+      `${form.message}\n\n${form.name}\n${form.email}`,
+    );
+
+    window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
     setSent(true);
     setTimeout(() => setSent(false), 4000);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
   };
 
@@ -26,9 +46,11 @@ export default function Contact() {
       data-testid="section-contact"
     >
       <div className="flex items-center gap-3 mb-4">
-        <span className="text-primary font-mono text-sm">05.</span>
+        <span className="text-primary font-mono text-sm">06.</span>
         <span className="h-px flex-1 max-w-[60px] bg-border" />
-        <span className="text-muted-foreground font-mono text-xs uppercase tracking-widest">Contact</span>
+        <span className="text-muted-foreground font-mono text-xs uppercase tracking-widest">
+          {content.sectionLabels.contact}
+        </span>
       </div>
 
       <motion.h2
@@ -38,7 +60,8 @@ export default function Contact() {
         transition={{ duration: 0.7 }}
         data-testid="contact-title"
       >
-        Let's <span className="gradient-text">Work Together</span>
+        {contact.titlePrefix}{' '}
+        <span className="gradient-text">{contact.titleAccent}</span>
       </motion.h2>
 
       <motion.p
@@ -47,7 +70,7 @@ export default function Contact() {
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.7, delay: 0.1 }}
       >
-        Have a project in mind or just want to chat? I'm always open to new opportunities and collaborations.
+        {contact.intro}
       </motion.p>
 
       <div className="grid lg:grid-cols-2 gap-12">
@@ -57,19 +80,54 @@ export default function Contact() {
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.2 }}
         >
-          <div className="space-y-4">
+          <div className="grid sm:grid-cols-2 gap-4">
             {[
-              { icon: Mail, label: "Email", value: "alex@devportfolio.io", href: "mailto:alex@devportfolio.io" },
-              { icon: MapPin, label: "Location", value: "Available Worldwide — Remote", href: undefined },
+              {
+                icon: Mail,
+                label: contact.labels.email,
+                value: profile.email,
+                href: `mailto:${profile.email}`,
+              },
+              {
+                icon: Phone,
+                label: contact.labels.phone,
+                value: profile.phone,
+                href: `tel:${profile.phone}`,
+              },
+              {
+                icon: Globe,
+                label: contact.labels.website,
+                value: profile.website,
+                href: profile.websiteUrl,
+              },
+              {
+                icon: MapPin,
+                label: contact.labels.location,
+                value: profile.location,
+                href: undefined,
+              },
             ].map(({ icon: Icon, label, value, href }) => (
-              <div key={label} className="flex items-center gap-4 p-4 rounded-xl border border-border/50 bg-card">
+              <div
+                key={label}
+                className="flex items-center gap-4 p-4 rounded-xl border border-border/50 bg-card"
+              >
                 <div className="w-9 h-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
                   <Icon size={16} className="text-primary" />
                 </div>
-                <div>
-                  <p className="text-xs text-muted-foreground font-mono">{label}</p>
+                <div className="min-w-0">
+                  <p className="text-xs text-muted-foreground font-mono">
+                    {label}
+                  </p>
                   {href ? (
-                    <a href={href} className="text-sm text-foreground hover:text-primary transition-colors" data-testid={`contact-${label.toLowerCase()}`}>{value}</a>
+                    <a
+                      href={href}
+                      target={href.startsWith('http') ? '_blank' : undefined}
+                      rel="noopener noreferrer"
+                      className="text-sm text-foreground hover:text-primary transition-colors break-words"
+                      data-testid={`contact-${label.toLowerCase()}`}
+                    >
+                      {value}
+                    </a>
                   ) : (
                     <p className="text-sm text-foreground">{value}</p>
                   )}
@@ -79,11 +137,13 @@ export default function Contact() {
           </div>
 
           <div>
-            <p className="text-xs text-muted-foreground font-mono uppercase tracking-widest mb-4">Find me on</p>
-            <div className="flex gap-3">
+            <p className="text-xs text-muted-foreground font-mono uppercase tracking-widest mb-4">
+              {contact.labels.findMe}
+            </p>
+            <div className="flex flex-wrap gap-3">
               {[
-                { icon: Github, href: "https://github.com", label: "GitHub" },
-                { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+                { icon: Github, href: profile.github, label: 'GitHub' },
+                { icon: Linkedin, href: profile.linkedin, label: 'LinkedIn' },
               ].map(({ icon: Icon, href, label }) => (
                 <motion.a
                   key={label}
@@ -113,27 +173,31 @@ export default function Contact() {
         >
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-xs text-muted-foreground font-mono uppercase tracking-widest mb-2 block">Name</label>
+              <label className="text-xs text-muted-foreground font-mono uppercase tracking-widest mb-2 block">
+                {contact.labels.name}
+              </label>
               <input
                 name="name"
                 type="text"
                 required
                 value={form.name}
                 onChange={handleChange}
-                placeholder="Your name"
+                placeholder={contact.placeholders.name}
                 className="w-full px-4 py-3 rounded-xl border border-border/60 bg-card text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-all"
                 data-testid="input-name"
               />
             </div>
             <div>
-              <label className="text-xs text-muted-foreground font-mono uppercase tracking-widest mb-2 block">Email</label>
+              <label className="text-xs text-muted-foreground font-mono uppercase tracking-widest mb-2 block">
+                {contact.labels.email}
+              </label>
               <input
                 name="email"
                 type="email"
                 required
                 value={form.email}
                 onChange={handleChange}
-                placeholder="your@email.com"
+                placeholder={contact.placeholders.email}
                 className="w-full px-4 py-3 rounded-xl border border-border/60 bg-card text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-all"
                 data-testid="input-email"
               />
@@ -141,14 +205,16 @@ export default function Contact() {
           </div>
 
           <div>
-            <label className="text-xs text-muted-foreground font-mono uppercase tracking-widest mb-2 block">Message</label>
+            <label className="text-xs text-muted-foreground font-mono uppercase tracking-widest mb-2 block">
+              {contact.labels.message}
+            </label>
             <textarea
               name="message"
               required
               rows={5}
               value={form.message}
               onChange={handleChange}
-              placeholder="Tell me about your project..."
+              placeholder={contact.placeholders.message}
               className="w-full px-4 py-3 rounded-xl border border-border/60 bg-card text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-all resize-none"
               data-testid="input-message"
             />
@@ -164,12 +230,12 @@ export default function Contact() {
             {sent ? (
               <>
                 <CheckCircle size={16} />
-                Message Sent!
+                {contact.sent}
               </>
             ) : (
               <>
                 <Send size={16} />
-                Send Message
+                {contact.send}
               </>
             )}
           </motion.button>
@@ -182,8 +248,8 @@ export default function Contact() {
         animate={inView ? { opacity: 1 } : {}}
         transition={{ delay: 0.6 }}
       >
-        <span>Designed & Built by Alex Dev — 2024</span>
-        <span>React · NestJS · TypeScript</span>
+        <span>{contact.footerLeft}</span>
+        <span>{contact.footerRight}</span>
       </motion.div>
     </section>
   );

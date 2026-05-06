@@ -1,31 +1,9 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Code2, Zap, Globe, Coffee } from 'lucide-react';
-
-const traits = [
-  {
-    icon: Code2,
-    title: 'Clean Code',
-    desc: 'I write readable, maintainable code that scales with your team and product.',
-  },
-  {
-    icon: Zap,
-    title: 'Performance',
-    desc: 'Optimized builds, lazy loading, and efficient algorithms — every millisecond counts.',
-  },
-  {
-    icon: Globe,
-    title: 'Fullstack',
-    desc: 'From REST APIs in NestJS to pixel-perfect React UIs, I own the full stack.',
-  },
-  {
-    icon: Coffee,
-    title: 'Fast Learner',
-    desc: 'Technology moves fast. I move faster. Always shipping, always learning.',
-  },
-];
+import { usePortfolio } from '@/lib/portfolio-context';
 
 export default function About() {
+  const { content } = usePortfolio();
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: '-100px' });
 
@@ -45,11 +23,11 @@ export default function About() {
           <span className="text-primary font-mono text-sm">01.</span>
           <span className="h-px flex-1 max-w-15 bg-border" />
           <span className="text-muted-foreground font-mono text-xs uppercase tracking-widest">
-            About Me
+            {content.sectionLabels.about}
           </span>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
+        <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-16 items-start">
           <div>
             <motion.h2
               className="text-4xl md:text-5xl font-serif font-bold mb-6 leading-tight"
@@ -58,9 +36,11 @@ export default function About() {
               transition={{ duration: 0.7, delay: 0.1 }}
               data-testid="about-title"
             >
-              Building the web,
+              {content.about.headingTop}
               <br />
-              <span className="gradient-text">one commit at a time.</span>
+              <span className="gradient-text">
+                {content.about.headingAccent}
+              </span>
             </motion.h2>
 
             <motion.div
@@ -69,18 +49,9 @@ export default function About() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.2 }}
             >
-              <p>
-                I'm a junior fullstack JavaScript developer with a passion for
-                building fast, accessible, and visually compelling web
-                applications. I work across the entire stack — from designing
-                scalable REST APIs with Node.js and NestJS to crafting smooth UI
-                components in React and Angular.
-              </p>
-              <p>
-                When I'm not coding, I'm exploring new frameworks, contributing
-                to open source, or learning something that will make me a better
-                developer tomorrow.
-              </p>
+              {content.about.paragraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
             </motion.div>
 
             <motion.div
@@ -89,24 +60,11 @@ export default function About() {
               animate={inView ? { opacity: 1 } : {}}
               transition={{ delay: 0.4 }}
             >
-              {[
-                'JavaScript',
-                'TypeScript',
-                'React',
-                'Angular',
-                'Node.js',
-                'NestJS',
-                'MySQL',
-                'Git',
-                'Docker',
-                'CI/CD',
-                'Jenkins',
-                'Agile',
-              ].map((tag) => (
+              {content.about.tags.map((tag) => (
                 <span
                   key={tag}
                   className="px-3 py-1 rounded-full border border-border/60 bg-muted/30 text-sm font-mono text-muted-foreground hover:border-primary/40 hover:text-primary transition-colors duration-200"
-                  data-testid={`tag-${tag.toLowerCase()}`}
+                  data-testid={`tag-${tag.toLowerCase().replace(/\s|\./g, '-')}`}
                 >
                   {tag}
                 </span>
@@ -115,17 +73,17 @@ export default function About() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {traits.map((trait, i) => (
+            {content.about.traits.map((trait, i) => (
               <motion.div
                 key={trait.title}
-                className="p-6 rounded-2xl border border-border/60 bg-card hover:border-primary/30 hover:bg-card transition-all duration-300 group"
+                className="p-6 rounded-xl border border-border/60 bg-card hover:border-primary/30 transition-all duration-300 group"
                 initial={{ opacity: 0, y: 30 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.2 + i * 0.1 }}
                 whileHover={{ y: -4 }}
                 data-testid={`about-trait-${i}`}
               >
-                <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                   <trait.icon size={20} className="text-primary" />
                 </div>
                 <h3 className="font-serif font-semibold text-foreground mb-2">

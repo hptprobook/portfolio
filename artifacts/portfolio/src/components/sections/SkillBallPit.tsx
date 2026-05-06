@@ -8,14 +8,12 @@ import {
   SiTypescript,
   SiJavascript,
   SiGit,
-  SiMongodb,
   SiDocker,
-  SiTailwindcss,
-  SiExpress,
   SiMysql,
   SiJenkins,
   SiPhp,
   SiLaravel,
+  SiGraphql,
 } from 'react-icons/si';
 import type { IconType } from 'react-icons';
 
@@ -34,9 +32,7 @@ const BALLS: BallDef[] = [
   { name: 'TypeScript', icon: SiTypescript, color: '#3178C6', radius: 46 },
   { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E', radius: 46 },
   { name: 'MySQL', icon: SiMysql, color: '#4169E1', radius: 46 },
-  { name: 'MongoDB', icon: SiMongodb, color: '#47A248', radius: 20 },
-  { name: 'Express', icon: SiExpress, color: '#888888', radius: 50 },
-  { name: 'Tailwind', icon: SiTailwindcss, color: '#06B6D4', radius: 46 },
+  { name: 'GraphQL', icon: SiGraphql, color: '#E10098', radius: 30 },
   { name: 'Docker', icon: SiDocker, color: '#2496ED', radius: 26 },
   { name: 'Git', icon: SiGit, color: '#F05032', radius: 46 },
   { name: 'PHP', icon: SiPhp, color: '#777BB4', radius: 12 },
@@ -196,7 +192,7 @@ export default function SkillBallPit() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full rounded-2xl overflow-hidden border border-white/10 bg-linear-to-b from-slate-900/80 to-slate-950/90"
+      className="relative w-full rounded-xl overflow-hidden border border-border/60 bg-linear-to-b from-card to-muted/50 dark:from-slate-900/80 dark:to-slate-950/90"
       style={{ height: PIT_HEIGHT, cursor: 'none' }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}

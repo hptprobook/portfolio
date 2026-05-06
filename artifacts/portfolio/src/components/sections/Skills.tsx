@@ -1,49 +1,7 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import SkillBallPit from './SkillBallPit';
-import {
-  SiReact,
-  SiAngular,
-  SiNodedotjs,
-  SiNestjs,
-  SiTypescript,
-  SiJavascript,
-  SiGit,
-  SiPostgresql,
-  SiMongodb,
-  SiDocker,
-  SiTailwindcss,
-  SiExpress,
-  SiMysql,
-  SiJenkins,
-} from 'react-icons/si';
-
-const skillGroups = [
-  {
-    category: 'Frontend',
-    items: [
-      { name: 'React.js', icon: SiReact, color: '#61DAFB', level: 85 },
-      { name: 'Angular', icon: SiAngular, color: '#DD0031', level: 80 },
-      { name: 'TypeScript', icon: SiTypescript, color: '#3178C6', level: 82 },
-    ],
-  },
-  {
-    category: 'Backend',
-    items: [
-      { name: 'Node.js', icon: SiNodedotjs, color: '#339933', level: 83 },
-      { name: 'NestJS', icon: SiNestjs, color: '#E0234E', level: 78 },
-      { name: 'MYSQL', icon: SiMysql, color: '#4169E1', level: 88 },
-    ],
-  },
-  {
-    category: 'Tools & Infra',
-    items: [
-      { name: 'Git', icon: SiGit, color: '#F05032', level: 85 },
-      { name: 'Jenkins', icon: SiJenkins, color: '#F2C037', level: 68 },
-      { name: 'Docker', icon: SiDocker, color: '#2496ED', level: 60 },
-    ],
-  },
-];
+import { usePortfolio } from '@/lib/portfolio-context';
 
 function SkillBar({
   level,
@@ -70,6 +28,7 @@ function SkillBar({
 }
 
 export default function Skills() {
+  const { content } = usePortfolio();
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: '-100px' });
 
@@ -81,56 +40,52 @@ export default function Skills() {
       data-testid="section-skills"
     >
       <div className="max-w-6xl mx-auto">
-        {/* Section header */}
         <div className="flex items-center gap-3 mb-4">
           <span className="text-primary font-mono text-sm">02.</span>
           <span className="h-px flex-1 max-w-15 bg-border" />
           <span className="text-muted-foreground font-mono text-xs uppercase tracking-widest">
-            Skills
+            {content.sectionLabels.skills}
           </span>
         </div>
 
         <motion.h2
-          className="text-4xl md:text-5xl font-serif font-bold mb-2"
+          className="text-4xl md:text-5xl font-serif font-bold mb-3"
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
           data-testid="skills-title"
         >
-          My <span className="gradient-text">Tech Stack</span>
+          {content.skills.titlePrefix}{' '}
+          <span className="gradient-text">{content.skills.titleAccent}</span>
         </motion.h2>
 
         <motion.p
-          className="text-muted-foreground text-sm mb-10"
+          className="text-muted-foreground text-sm mb-10 max-w-2xl"
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 0.2 }}
         >
-          Move your mouse through the pit — the cursor pushes the bubbles
-          around.
+          {content.skills.intro}
         </motion.p>
 
-        {/* Two-column layout: ball pit left, skill bars right */}
         <motion.div
           className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start"
           initial={{ opacity: 0, y: 40 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.2 }}
         >
-          {/* LEFT — ball pit */}
           <div className="w-full">
             <SkillBallPit />
           </div>
 
-          {/* RIGHT — progress bars */}
           <div className="space-y-8">
-            {skillGroups.map((group, gi) => (
+            {content.skills.groups.map((group, gi) => (
               <motion.div
                 key={group.category}
                 initial={{ opacity: 0, x: 30 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.4 + gi * 0.12 }}
-                className="space-y-4"
+                className="space-y-4 rounded-xl border border-border/50 bg-card/60 p-5"
                 data-testid={`skill-group-${gi}`}
               >
                 <h3 className="font-mono text-xs text-muted-foreground uppercase tracking-widest border-b border-border/50 pb-2">
@@ -142,19 +97,19 @@ export default function Skills() {
                     className="group"
                     data-testid={`skill-${skill.name.toLowerCase().replace(/\./g, '').replace(/\s/g, '')}`}
                   >
-                    <div className="flex items-center justify-between mb-1.5">
-                      <div className="flex items-center gap-2.5">
+                    <div className="flex items-center justify-between gap-3 mb-1.5">
+                      <div className="flex items-center gap-2.5 min-w-0">
                         <skill.icon
                           size={14}
                           style={{ color: skill.color }}
-                          className="transition-transform duration-300 group-hover:scale-125"
+                          className="transition-transform duration-300 group-hover:scale-125 shrink-0"
                         />
-                        <span className="text-sm text-foreground font-medium">
+                        <span className="text-sm text-foreground font-medium truncate">
                           {skill.name}
                         </span>
                       </div>
-                      <span className="text-xs font-mono text-muted-foreground">
-                        {skill.level}%
+                      <span className="text-xs font-mono text-muted-foreground whitespace-nowrap">
+                        {skill.experience}
                       </span>
                     </div>
                     <SkillBar
