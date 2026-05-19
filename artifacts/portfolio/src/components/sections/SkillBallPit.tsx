@@ -28,15 +28,15 @@ const BALLS: BallDef[] = [
   { name: 'React', icon: SiReact, color: '#61DAFB', radius: 46 },
   { name: 'Angular', icon: SiAngular, color: '#DD0031', radius: 46 },
   { name: 'Node.js', icon: SiNodedotjs, color: '#339933', radius: 46 },
-  { name: 'NestJS', icon: SiNestjs, color: '#E0234E', radius: 46 },
+  { name: 'NestJS', icon: SiNestjs, color: '#E0234E', radius: 23 },
   { name: 'TypeScript', icon: SiTypescript, color: '#3178C6', radius: 46 },
   { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E', radius: 46 },
   { name: 'MySQL', icon: SiMysql, color: '#4169E1', radius: 46 },
   { name: 'GraphQL', icon: SiGraphql, color: '#E10098', radius: 30 },
   { name: 'Docker', icon: SiDocker, color: '#2496ED', radius: 26 },
   { name: 'Git', icon: SiGit, color: '#F05032', radius: 46 },
-  { name: 'PHP', icon: SiPhp, color: '#777BB4', radius: 12 },
-  { name: 'Laravel', icon: SiLaravel, color: '#FF2D20', radius: 12 },
+  { name: 'PHP', icon: SiPhp, color: '#777BB4', radius: 23 },
+  { name: 'Laravel', icon: SiLaravel, color: '#FF2D20', radius: 23 },
   { name: 'Jenkins', icon: SiJenkins, color: '#F2C037', radius: 18 },
 ];
 
