@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { X, Layers, GitBranch, ExternalLink } from 'lucide-react';
+import { X, Layers, GitBranch, ExternalLink, ListChecks } from 'lucide-react';
+import { useBodyScrollLock } from '@/hooks/use-body-scroll-lock';
 import { usePortfolio } from '@/lib/portfolio-context';
 import type { Project, TimelineItem } from '@/data/portfolio';
 
@@ -14,19 +15,21 @@ function ProjectsModal({
   const { content } = usePortfolio();
   const [active, setActive] = useState(0);
   const current = items[active] ?? items[0];
+  useBodyScrollLock();
 
   if (!current) return null;
 
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 overscroll-contain"
+      data-lenis-prevent=""
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       onClick={onClose}
     >
       <motion.div
-        className="relative w-full max-w-4xl max-h-[90vh] rounded-xl border border-border/60 bg-background overflow-hidden shadow-2xl flex flex-col"
+        className="relative w-full max-w-4xl max-h-[90vh] min-h-0 rounded-xl border border-border/60 bg-background overflow-hidden shadow-2xl flex flex-col"
         initial={{ scale: 0.92, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.92, opacity: 0 }}
@@ -51,8 +54,8 @@ function ProjectsModal({
           </button>
         </div>
 
-        <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
-          <div className="md:w-1/2 max-h-72 md:max-h-none overflow-y-auto border-b md:border-b-0 md:border-r border-border/40 p-4 space-y-4">
+        <div className="flex min-h-0 flex-1 flex-col overflow-hidden md:flex-row">
+          <div className="max-h-72 min-h-0 overflow-y-auto overscroll-contain border-b border-border/40 p-4 space-y-4 md:w-1/2 md:max-h-none md:border-b-0 md:border-r">
             {items.map((p, i) => (
               <motion.div
                 key={p.number}
@@ -92,7 +95,7 @@ function ProjectsModal({
             ))}
           </div>
 
-          <div className="md:w-1/2 overflow-y-auto p-6">
+          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-6 md:w-1/2">
             <AnimatePresence mode="wait">
               <motion.div
                 key={active}
@@ -128,8 +131,26 @@ function ProjectsModal({
                   {current.title}
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-5">
-                  {current.description}
+                  {current.detail.overview || current.description}
                 </p>
+
+                <div className="mb-6 rounded-xl border border-border/50 bg-card/70 p-4">
+                  <div className="mb-3 flex items-center gap-2 text-sm font-medium text-foreground">
+                    <ListChecks size={16} className="text-primary" />
+                    {content.projects.responsibilitiesLabel}
+                  </div>
+                  <ul className="space-y-2">
+                    {current.detail.responsibilities.map((item) => (
+                      <li
+                        key={item}
+                        className="flex gap-2 text-sm leading-relaxed text-muted-foreground"
+                      >
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/70" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
                 <div className="flex flex-wrap gap-2 mb-6">
                   {current.stack.map((tech) => (
@@ -334,6 +355,7 @@ export default function Experience() {
     null,
   );
   const [projectsModal, setProjectsModal] = useState<Project[] | null>(null);
+  useBodyScrollLock(Boolean(lightbox));
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -501,7 +523,8 @@ export default function Experience() {
       <AnimatePresence>
         {lightbox && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 overscroll-contain"
+            data-lenis-prevent=""
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

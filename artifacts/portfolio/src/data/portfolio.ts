@@ -26,13 +26,17 @@ import {
   SiPhp,
   SiReact,
   SiTypescript,
+  SiI18Next,
 } from 'react-icons/si';
+import { DiMsqlServer } from 'react-icons/di';
 import AegonaImg from '@/assets/images/aegona.jpg';
 import CuoiAgencyImg from '@/assets/images/cuoiagency.webp';
 import FptEduImg from '@/assets/images/fptedu.jpg';
 import Gamora from '@/assets/images/gamora.png';
 import VietArtSpace from '@/assets/images/vietartspace.png';
 import VaSchool from '@/assets/images/vaschool.png';
+import TimeSheetImg from '@/assets/images/vaschool.png';
+import LavishnailImg from '@/assets/images/vaschool.png';
 
 export const languages = ['vi', 'en'] as const;
 export type Language = (typeof languages)[number];
@@ -134,7 +138,13 @@ export interface PortfolioContent {
     secondaryCta: string;
     cvCta: string;
     scroll: string;
-    snippets: { code: string; x: string; y: string; delay: number; depth: number }[];
+    snippets: {
+      code: string;
+      x: string;
+      y: string;
+      delay: number;
+      depth: number;
+    }[];
   };
   sectionLabels: {
     about: string;
@@ -161,7 +171,6 @@ export interface PortfolioContent {
     titlePrefix: string;
     titleAccent: string;
     featuredLabel: string;
-    moreGithub: string;
     periodLabel: string;
     viewDetail: string;
     modalTitle: string;
@@ -233,6 +242,7 @@ const stack = {
   angular: { name: 'Angular', icon: SiAngular },
   react: { name: 'ReactJS', icon: SiReact },
   node: { name: 'NodeJS', icon: SiNodedotjs },
+  mssql: { name: 'MS SQL Server', icon: DiMsqlServer },
   nest: { name: 'Nest.js', icon: SiNestjs },
   mysql: { name: 'MySQL', icon: SiMysql },
   typescript: { name: 'TypeScript', icon: SiTypescript },
@@ -279,10 +289,18 @@ const viProjects: Project[] = [
   {
     number: '01',
     title: 'Dự án quản lý trường học',
-    period: 'Đang phát triển',
+    period: 'Đã go-live',
     description:
       'Phát triển hệ thống quản lý trường học đa chi nhánh, hỗ trợ quản lý học sinh, phụ huynh, học phí và thông tin lớp học. Hệ thống tích hợp thanh toán học phí trực tuyến, quản lý bán hàng và Zalo Mini App phục vụ tra cứu thông tin, thanh toán và tương tác giữa nhà trường với phụ huynh.',
-    stack: [stack.react, stack.laravel, stack.mysql, stack.typescript],
+    stack: [
+      stack.react,
+      stack.nest,
+      stack.mysql,
+      stack.typescript,
+      stack.redis,
+      stack.elasticsearch,
+      stack.socket,
+    ],
     github: '',
     live: '',
     featured: true,
@@ -290,25 +308,35 @@ const viProjects: Project[] = [
     // PROJECT_DETAIL_EDIT_MARKER vi-01-school-management
     detail: {
       overview:
-        'Hệ thống quản lý trường học đa chi nhánh, kết nối dữ liệu học sinh, phụ huynh, lớp học, học phí và các nghiệp vụ vận hành nội bộ. Dự án có thêm luồng thanh toán học phí, quản lý bán hàng và Zalo Mini App để phụ huynh tra cứu thông tin.',
+        'Hệ thống quản lý trường học đa chi nhánh với hơn 7000 phụ huynh tương ứng với 10000 học sinh, kết nối dữ liệu học sinh, phụ huynh, lớp học, học phí và các nghiệp vụ vận hành nội bộ, hệ thống e-commerce. Dự án có thêm luồng thanh toán học phí, quản lý bán hàng và Zalo Mini App để phụ huynh tra cứu thông tin.',
       demoUrl: '',
       demoConfidential: true,
       demoStatus: 'Bảo mật theo yêu cầu dự án, không công khai website demo.',
       responsibilities: [
         'Phát triển giao diện quản trị bằng ReactJS và TypeScript.',
-        'Xây dựng các màn hình nghiệp vụ cho học sinh, phụ huynh, lớp học và học phí.',
-        'Tích hợp API với backend Laravel, xử lý form, bảng dữ liệu và trạng thái tải dữ liệu.',
-        'Phối hợp kiểm thử luồng thanh toán, tra cứu thông tin và các tính năng trong Zalo Mini App.',
+        'Quản lý học sinh, phụ huynh, lớp học và học phí theo kỳ/năm học',
+        'Tích hợp API với backend Nest.js/MySQL, xử lý form, bảng dữ liệu và trạng thái tải dữ liệu.',
+        'Quản lý thanh toán, báo cáo doanh thu, gửi thông báo và bán văn phòng phẩm học sinh.',
+        'Tối ưu hiệu năng hệ thống cho lượng lớn dữ liệu và người dùng đồng thời.',
+        'Sử dụng Redis để cache dữ liệu và Elasticsearch hỗ trợ tìm kiếm nhanh chóng trên hệ thống quản lý trường học.',
       ],
     },
   },
   {
     number: '02',
     title: 'Website bán tranh',
-    period: 'Đang phát triển',
+    period: 'Đã go-live',
     description:
       'Xây dựng nền tảng e-commerce bán tranh trực tuyến với quản lý sản phẩm, giỏ hàng, thanh toán, đơn hàng và khách hàng. Website cũng tích hợp dịch vụ in ảnh theo yêu cầu, cho phép khách hàng tải ảnh cá nhân, chọn kích thước, chất liệu in và đặt in trực tiếp.',
-    stack: [stack.angular, stack.php, stack.mysql, stack.typescript],
+    stack: [
+      stack.angular,
+      stack.laravel,
+      stack.mysql,
+      stack.typescript,
+      stack.socket,
+      stack.redis,
+      stack.elasticsearch,
+    ],
     github: '',
     live: '',
     featured: true,
@@ -317,13 +345,13 @@ const viProjects: Project[] = [
     detail: {
       overview:
         'Website thương mại điện tử bán tranh trực tuyến, hỗ trợ quản lý sản phẩm, giỏ hàng, đơn hàng, khách hàng và dịch vụ in ảnh theo yêu cầu. Người dùng có thể tải ảnh cá nhân, chọn kích thước, chất liệu in và gửi yêu cầu đặt in.',
-      demoUrl: '',
+      demoUrl: 'https://www.vietartspace.com/',
       demoConfidential: false,
-      demoStatus: 'Website demo công khai, cập nhật URL demo tại trường demoUrl này.',
+      demoStatus: 'https://www.vietartspace.com/',
       responsibilities: [
         'Xây dựng giao diện người dùng bằng Angular và TypeScript.',
         'Phát triển luồng danh sách sản phẩm, chi tiết sản phẩm, giỏ hàng và đặt hàng.',
-        'Tích hợp API PHP/MySQL cho dữ liệu sản phẩm, khách hàng và đơn hàng.',
+        'Tích hợp API Laravel/MySQL cho dữ liệu sản phẩm, khách hàng và đơn hàng.',
         'Thiết kế trải nghiệm tải ảnh, chọn thông số in và gửi yêu cầu in ảnh.',
       ],
     },
@@ -331,10 +359,18 @@ const viProjects: Project[] = [
   {
     number: '03',
     title: 'Dự án quản lý đặt sân',
-    period: 'Đang phát triển',
+    period: 'Đã go-live',
     description:
       'Phát triển hệ thống booking và POS quản lý đặt sân thể thao, hỗ trợ quản lý khách hàng, lịch đặt sân dạng calendar, kiểm tra cập nhật lịch theo thời gian thực, quản lý bán hàng tại quầy, thanh toán và theo dõi doanh thu.',
-    stack: [stack.angular, stack.nest, stack.mysql, stack.typescript],
+    stack: [
+      stack.angular,
+      stack.nest,
+      stack.mysql,
+      stack.typescript,
+      stack.socket,
+      stack.redis,
+      stack.elasticsearch,
+    ],
     github: '',
     live: '',
     featured: true,
@@ -356,49 +392,59 @@ const viProjects: Project[] = [
   },
   {
     number: '04',
-    title: 'Dự án Aegona 01',
-    period: 'Đang cập nhật',
+    title: 'Dự án Tool Timesheet',
+    period: 'Đang phát triển',
     description:
-      'Dự án placeholder thuộc nhóm Aegona, được thêm để cập nhật thông tin chi tiết sau.',
-    stack: [stack.react, stack.node, stack.mysql, stack.typescript],
+      'Hệ thống tool hỗ trợ khách hàng nhập file excel xử lý chấm công cho 1000 nhân viên, xử lý dữ liệu chấm công, tính toán lương, cập nhật lại dữ liệu hệ thống máy chấm công gốc và xuất báo cáo theo yêu cầu.',
+    stack: [stack.next, stack.mssql, stack.typescript],
     github: '',
     live: '',
     featured: false,
-    image: AegonaImg,
+    image: TimeSheetImg,
     // PROJECT_DETAIL_EDIT_MARKER vi-04-aegona-placeholder-01
     detail: {
       overview:
-        'Placeholder cho dự án Aegona 01. Cập nhật mục tiêu, bối cảnh, phạm vi và nghiệp vụ dự án tại đây.',
+        'Hệ thống tool hỗ trợ khách hàng nhập file excel xử lý chấm công cho 1000 nhân viên, xử lý dữ liệu chấm công, tính toán lương, cập nhật lại dữ liệu hệ thống máy chấm công gốc và xuất báo cáo theo yêu cầu.',
       demoUrl: '',
       demoConfidential: true,
       demoStatus: 'Bảo mật theo yêu cầu dự án, không công khai website demo.',
       responsibilities: [
-        'Cập nhật vai trò của tôi trong dự án này.',
-        'Cập nhật các màn hình, API hoặc module đã tham gia.',
+        'Xây dựng api đăng nhập, và xử lý file excel chấm công để cập nhật vào database gốc của hệ thống máy chấm công.',
+        'Tham gia xây dựng giao diện, luồng tính toán lương và xuất báo cáo theo yêu cầu khách hàng.',
       ],
     },
   },
   {
     number: '05',
-    title: 'Dự án Aegona 02',
-    period: 'Đang cập nhật',
+    title: 'Ứng dụng mobile booking nail',
+    period: 'Đang phát triển',
     description:
-      'Dự án placeholder thuộc nhóm Aegona, được thêm để cập nhật thông tin chi tiết sau.',
-    stack: [stack.angular, stack.nest, stack.mysql, stack.typescript],
+      'Hệ thống quản lý đặt lịch làm nail, hỗ trợ khách hàng đặt lịch qua app mobile, quản lý chi nhánh, dịch vụ, nhân viên, lịch làm việc và báo cáo doanh thu. Hệ thống cũng tích hợp tính năng nhắc lịch và đánh giá dịch vụ sau khi khách hàng sử dụng.',
+    stack: [
+      stack.angular,
+      stack.nest,
+      stack.mysql,
+      stack.typescript,
+      stack.firebase,
+      stack.socket,
+      stack.redis,
+      stack.elasticsearch,
+    ],
     github: '',
     live: '',
     featured: false,
-    image: AegonaImg,
+    image: LavishnailImg,
     // PROJECT_DETAIL_EDIT_MARKER vi-05-aegona-placeholder-02
     detail: {
       overview:
-        'Placeholder cho dự án Aegona 02. Cập nhật mục tiêu, bối cảnh, phạm vi và nghiệp vụ dự án tại đây.',
+        'Xây dựng hệ thống api cho ứng dụng mobile booking nail quản lý chi nhánh, dịch vụ, nhân viên, lịch làm việc và báo cáo doanh thu. Tích hợp tính năng nhắc lịch và đánh giá dịch vụ sau khi khách hàng sử dụng.',
       demoUrl: '',
       demoConfidential: true,
       demoStatus: 'Bảo mật theo yêu cầu dự án, không công khai website demo.',
       responsibilities: [
-        'Cập nhật vai trò của tôi trong dự án này.',
-        'Cập nhật các màn hình, API hoặc module đã tham gia.',
+        'Xây dựng Graphql API cho ứng dụng mobile booking nail, bao gồm quản lý chi nhánh, dịch vụ, nhân viên, lịch làm việc và báo cáo doanh thu.',
+        'Tích hợp Firebase và Socket.IO để hỗ trợ tính năng nhắc lịch và đánh giá dịch vụ sau khi khách hàng sử dụng.',
+        'Tích hợp Redis và Elasticsearch để hỗ trợ tìm kiếm nhanh các dịch vụ và nhân viên.',
       ],
     },
   },
@@ -408,7 +454,14 @@ const viProjects: Project[] = [
     period: 'Dự án tại FPT Polytechnic',
     description:
       'Nền tảng e-commerce thời trang với giỏ hàng, đơn hàng thời gian thực và AI chatbot hỗ trợ người dùng.',
-    stack: [stack.react, stack.node, stack.mongodb, stack.material, stack.socket, stack.firebase],
+    stack: [
+      stack.react,
+      stack.node,
+      stack.mongodb,
+      stack.material,
+      stack.socket,
+      stack.firebase,
+    ],
     github: 'https://github.com/hptprobook/datn',
     live: '',
     featured: false,
@@ -433,7 +486,14 @@ const viProjects: Project[] = [
     period: 'Dự án tại FPT Polytechnic',
     description:
       'Ứng dụng quản lý công việc lấy cảm hứng từ Trello, hỗ trợ realtime, thông báo và kéo thả.',
-    stack: [stack.react, stack.node, stack.mongodb, stack.socket, stack.firebase, stack.dndkit],
+    stack: [
+      stack.react,
+      stack.node,
+      stack.mongodb,
+      stack.socket,
+      stack.firebase,
+      stack.dndkit,
+    ],
     github: 'https://github.com/hptprobook/frontend-framework',
     live: '',
     featured: false,
@@ -457,7 +517,14 @@ const viProjects: Project[] = [
     period: 'Dự án tại FPT Polytechnic',
     description:
       'Website e-commerce theo nhóm với chức năng cho người dùng và trang quản trị.',
-    stack: [stack.next, stack.react, stack.laravel, stack.material, stack.axios, stack.redux],
+    stack: [
+      stack.next,
+      stack.react,
+      stack.laravel,
+      stack.material,
+      stack.axios,
+      stack.redux,
+    ],
     github: 'https://github.com/hptprobook/3000',
     live: '',
     featured: false,
@@ -527,8 +594,7 @@ const viProjects: Project[] = [
     number: '11',
     title: 'Tool Export LMS',
     period: 'Dự án tại FPT Polytechnic',
-    description:
-      'Chrome extension hỗ trợ trích xuất điểm LMS ra Excel.',
+    description: 'Chrome extension hỗ trợ trích xuất điểm LMS ra Excel.',
     stack: [stack.chrome, stack.javascript],
     github: '',
     live: 'https://chromewebstore.google.com/detail/export-score/nligchepkpodlccjkjliepebgloolfee?authuser=0&hl=vi',
@@ -538,7 +604,8 @@ const viProjects: Project[] = [
     detail: {
       overview:
         'Tiện ích Chrome hỗ trợ lấy dữ liệu điểm từ LMS và xuất ra file Excel phục vụ quy trình học tập/nội bộ.',
-      demoUrl: 'https://chromewebstore.google.com/detail/export-score/nligchepkpodlccjkjliepebgloolfee?authuser=0&hl=vi',
+      demoUrl:
+        'https://chromewebstore.google.com/detail/export-score/nligchepkpodlccjkjliepebgloolfee?authuser=0&hl=vi',
       demoConfidential: false,
       demoStatus: 'Có thể xem trên Chrome Web Store.',
       responsibilities: [
@@ -567,7 +634,8 @@ const enProjects: Project[] = [
         'A multi-branch school management system that connects student, parent, class, tuition, and internal operation data. The project also includes tuition payment flows, sales management, and a Zalo Mini App for parent-facing information lookup.',
       demoUrl: '',
       demoConfidential: true,
-      demoStatus: 'Confidential by project requirement, so the demo website is not public.',
+      demoStatus:
+        'Confidential by project requirement, so the demo website is not public.',
       responsibilities: [
         'Developed admin interfaces with ReactJS and TypeScript.',
         'Built business screens for students, parents, classes, and tuition fees.',
@@ -593,7 +661,8 @@ const enProjects: Project[] = [
         'An e-commerce website for selling paintings online, with product, cart, order, customer, and on-demand photo printing workflows. Customers can upload personal images, choose print size/material, and submit print orders.',
       demoUrl: '',
       demoConfidential: false,
-      demoStatus: 'Public demo website, update the demoUrl field here when the URL is ready.',
+      demoStatus:
+        'Public demo website, update the demoUrl field here when the URL is ready.',
       responsibilities: [
         'Built the user interface with Angular and TypeScript.',
         'Developed product listing, product detail, cart, and checkout flows.',
@@ -619,7 +688,8 @@ const enProjects: Project[] = [
         'A booking and POS system for sports court operations, covering booking schedules, customers, counter sales, payments, and revenue tracking. Booking data is organized in a calendar format so staff can check and update schedules quickly.',
       demoUrl: '',
       demoConfidential: true,
-      demoStatus: 'Confidential by project requirement, so the demo website is not public.',
+      demoStatus:
+        'Confidential by project requirement, so the demo website is not public.',
       responsibilities: [
         'Developed the sports court booking admin UI with Angular and TypeScript.',
         'Built calendar screens, booking updates, and booking status flows.',
@@ -645,7 +715,8 @@ const enProjects: Project[] = [
         'Placeholder for Aegona Project 01. Update the goal, context, scope, and business domain here.',
       demoUrl: '',
       demoConfidential: true,
-      demoStatus: 'Confidential by project requirement, so the demo website is not public.',
+      demoStatus:
+        'Confidential by project requirement, so the demo website is not public.',
       responsibilities: [
         'Update my role in this project.',
         'Update the screens, APIs, or modules I worked on.',
@@ -669,7 +740,8 @@ const enProjects: Project[] = [
         'Placeholder for Aegona Project 02. Update the goal, context, scope, and business domain here.',
       demoUrl: '',
       demoConfidential: true,
-      demoStatus: 'Confidential by project requirement, so the demo website is not public.',
+      demoStatus:
+        'Confidential by project requirement, so the demo website is not public.',
       responsibilities: [
         'Update my role in this project.',
         'Update the screens, APIs, or modules I worked on.',
@@ -682,7 +754,14 @@ const enProjects: Project[] = [
     period: 'In-school project',
     description:
       'A fashion e-commerce platform with realtime cart/orders and an AI chatbot for user support.',
-    stack: [stack.react, stack.node, stack.mongodb, stack.material, stack.socket, stack.firebase],
+    stack: [
+      stack.react,
+      stack.node,
+      stack.mongodb,
+      stack.material,
+      stack.socket,
+      stack.firebase,
+    ],
     github: 'https://github.com/hptprobook/datn',
     live: '',
     featured: false,
@@ -707,7 +786,14 @@ const enProjects: Project[] = [
     period: 'In-school project',
     description:
       'A Trello-inspired task management app with realtime updates, notifications, and drag-and-drop interactions.',
-    stack: [stack.react, stack.node, stack.mongodb, stack.socket, stack.firebase, stack.dndkit],
+    stack: [
+      stack.react,
+      stack.node,
+      stack.mongodb,
+      stack.socket,
+      stack.firebase,
+      stack.dndkit,
+    ],
     github: 'https://github.com/hptprobook/frontend-framework',
     live: '',
     featured: false,
@@ -731,7 +817,14 @@ const enProjects: Project[] = [
     period: 'In-school project',
     description:
       'A team e-commerce website with user-facing shopping features and an admin panel.',
-    stack: [stack.next, stack.react, stack.laravel, stack.material, stack.axios, stack.redux],
+    stack: [
+      stack.next,
+      stack.react,
+      stack.laravel,
+      stack.material,
+      stack.axios,
+      stack.redux,
+    ],
     github: 'https://github.com/hptprobook/3000',
     live: '',
     featured: false,
@@ -801,8 +894,7 @@ const enProjects: Project[] = [
     number: '11',
     title: 'Tool Export LMS',
     period: 'In-school project',
-    description:
-      'A Chrome extension for exporting LMS grades to Excel.',
+    description: 'A Chrome extension for exporting LMS grades to Excel.',
     stack: [stack.chrome, stack.javascript],
     github: '',
     live: 'https://chromewebstore.google.com/detail/export-score/nligchepkpodlccjkjliepebgloolfee?authuser=0&hl=vi',
@@ -812,7 +904,8 @@ const enProjects: Project[] = [
     detail: {
       overview:
         'A Chrome extension that extracts grade data from LMS and exports it to Excel for academic/internal workflows.',
-      demoUrl: 'https://chromewebstore.google.com/detail/export-score/nligchepkpodlccjkjliepebgloolfee?authuser=0&hl=vi',
+      demoUrl:
+        'https://chromewebstore.google.com/detail/export-score/nligchepkpodlccjkjliepebgloolfee?authuser=0&hl=vi',
       demoConfidential: false,
       demoStatus: 'Available on the Chrome Web Store.',
       responsibilities: [
@@ -846,8 +939,20 @@ export const portfolioContent: Record<Language, PortfolioContent> = {
         { code: "const dev = 'Hoa';", x: '5%', y: '20%', delay: 0, depth: 0.4 },
         { code: 'npm run build', x: '75%', y: '15%', delay: 0.3, depth: 0.6 },
         { code: '@nestjs/core', x: '80%', y: '60%', delay: 0.6, depth: 0.3 },
-        { code: "import React from 'react'", x: '2%', y: '70%', delay: 0.9, depth: 0.5 },
-        { code: 'git push origin main', x: '60%', y: '80%', delay: 1.2, depth: 0.7 },
+        {
+          code: "import React from 'react'",
+          x: '2%',
+          y: '70%',
+          delay: 0.9,
+          depth: 0.5,
+        },
+        {
+          code: 'git push origin main',
+          x: '60%',
+          y: '80%',
+          delay: 1.2,
+          depth: 0.7,
+        },
       ],
     },
     sectionLabels: {
@@ -862,14 +967,27 @@ export const portfolioContent: Record<Language, PortfolioContent> = {
       headingTop: 'Xây dựng sản phẩm web',
       headingAccent: 'từ API đến giao diện.',
       paragraphs: [
-        'Là một lập trình viên Junior Fullstack, tôi có niềm đam mê lớn trong việc xây dựng các ứng dụng web tốc độ cao, giao diện hiện đại và tối ưu trải nghiệm người dùng. Thế mạnh của tôi là khả năng làm việc toàn diện trên toàn bộ hệ thống — từ việc thiết kế REST API, tối ưu hóa backend bằng PHP & Laravel, cho đến phát triển các giao diện mượt mà với ReactJS & Angular. Ngoài giờ làm việc, tôi thường xuyên tìm hiểu các công nghệ mới và tham gia vào các workshop IT để không ngừng nâng cao tư duy cũng như kỹ năng phát triển phần mềm.',
+        'Là một lập trình viên Junior Fullstack, tôi có niềm đam mê lớn trong việc xây dựng các ứng dụng web tốc độ cao, giao diện hiện đại và tối ưu trải nghiệm người dùng. Thế mạnh của tôi là khả năng làm việc toàn diện trên toàn bộ hệ thống — từ việc thiết kế REST API, tối ưu hóa backend bằng PHP,  Laravel & NestJS, cho đến phát triển các giao diện mượt mà với ReactJS, NestJS & Angular. Ngoài giờ làm việc, tôi thường xuyên tìm hiểu các công nghệ mới và tham gia vào các workshop IT để không ngừng nâng cao tư duy cũng như kỹ năng phát triển phần mềm.',
       ],
-      tags: ['Angular', 'Git', 'Nest.js', 'NodeJS', 'ReactJS', 'Docker', 'Jenkins', 'Laravel', 'PHP', 'REST API', 'GraphQL', 'MySQL'],
+      tags: [
+        'Angular',
+        'Git',
+        'Nest.js',
+        'NodeJS',
+        'ReactJS',
+        'Docker',
+        'Jenkins',
+        'Laravel',
+        'PHP',
+        'REST API',
+        'GraphQL',
+        'MySQL',
+      ],
       traits: [
         {
           icon: Server,
-          title: 'Fullstack JavaScript',
-          desc: 'Có thể làm việc trên cả backend Node.js/NestJS và frontend React/Angular.',
+          title: 'Fullstack Developer',
+          desc: 'Có thể làm việc trên cả backend PHP/Laravel & Node.js/NestJS với frontend React/Next/Angular.',
         },
         {
           icon: Code2,
@@ -891,33 +1009,106 @@ export const portfolioContent: Record<Language, PortfolioContent> = {
     skills: {
       titlePrefix: 'Core',
       titleAccent: 'Skills',
-      intro: 'Các kỹ năng chính được tổng hợp từ CV, kết hợp với trải nghiệm thực tế trong dự án.',
+      intro:
+        'Các kỹ năng chính được tổng hợp từ CV, kết hợp với trải nghiệm thực tế trong dự án.',
       groups: [
         {
           category: 'Frontend',
           items: [
-            { name: 'Angular', icon: SiAngular, color: '#DD0031', level: 75, experience: '> 1 năm' },
-            { name: 'ReactJS', icon: SiReact, color: '#61DAFB', level: 86, experience: '> 1 năm' },
-            { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E', level: 86, experience: '> 1 năm' },
-            { name: 'TypeScript', icon: SiTypescript, color: '#3178C6', level: 80, experience: '> 1 năm' },
+            {
+              name: 'Angular',
+              icon: SiAngular,
+              color: '#DD0031',
+              level: 75,
+              experience: '< 2 năm',
+            },
+            {
+              name: 'ReactJS',
+              icon: SiReact,
+              color: '#61DAFB',
+              level: 86,
+              experience: '< 2 năm',
+            },
+            {
+              name: 'TypeScript',
+              icon: SiTypescript,
+              color: '#3178C6',
+              level: 80,
+              experience: '< 2 năm',
+            },
+            {
+              name: 'NextJS',
+              icon: SiI18Next,
+              color: '#3178C6',
+              level: 80,
+              experience: '< 1 năm',
+            },
           ],
         },
         {
           category: 'Backend',
           items: [
-            { name: 'NodeJS', icon: SiNodedotjs, color: '#339933', level: 84, experience: '> 1 năm' },
-            { name: 'Nest.js', icon: SiNestjs, color: '#E0234E', level: 82, experience: '> 1 năm' },
-            { name: 'MySQL', icon: SiMysql, color: '#4169E1', level: 80, experience: '> 1 năm' },
-            { name: 'PHP', icon: SiPhp, color: '#777BB4', level: 70, experience: '1 năm' },
-            { name: 'Laravel', icon: SiLaravel, color: '#FF2D20', level: 70, experience: '1 năm' },
+            {
+              name: 'NodeJS',
+              icon: SiNodedotjs,
+              color: '#339933',
+              level: 84,
+              experience: '< 2 năm',
+            },
+            {
+              name: 'NestJS',
+              icon: SiNestjs,
+              color: '#E0234E',
+              level: 82,
+              experience: '< 2 năm',
+            },
+            {
+              name: 'MySQL',
+              icon: SiMysql,
+              color: '#4169E1',
+              level: 80,
+              experience: '< 2 năm',
+            },
+            {
+              name: 'PHP',
+              icon: SiPhp,
+              color: '#777BB4',
+              level: 70,
+              experience: '< 2 năm',
+            },
+            {
+              name: 'Laravel',
+              icon: SiLaravel,
+              color: '#FF2D20',
+              level: 70,
+              experience: '< 2 năm',
+            },
           ],
         },
         {
           category: 'Tools & Workflow',
           items: [
-            { name: 'Git', icon: SiGit, color: '#F05032', level: 86, experience: '> 1 năm' },
-            { name: 'Docker', icon: SiDocker, color: '#2496ED', level: 68, experience: '1 năm' },
-            { name: 'Jenkins', icon: SiJenkins, color: '#F2C037', level: 66, experience: '1 năm' },
+            {
+              name: 'Git',
+              icon: SiGit,
+              color: '#F05032',
+              level: 86,
+              experience: '< 2 năm',
+            },
+            {
+              name: 'Docker',
+              icon: SiDocker,
+              color: '#2496ED',
+              level: 68,
+              experience: '< 1 năm',
+            },
+            {
+              name: 'Jenkins',
+              icon: SiJenkins,
+              color: '#F2C037',
+              level: 66,
+              experience: '< 1 năm',
+            },
           ],
         },
       ],
@@ -926,7 +1117,6 @@ export const portfolioContent: Record<Language, PortfolioContent> = {
       titlePrefix: 'Dự án',
       titleAccent: 'nổi bật',
       featuredLabel: 'nổi bật',
-      moreGithub: 'Xem thêm trên GitHub',
       periodLabel: 'Trạng thái',
       viewDetail: 'Xem chi tiết',
       modalTitle: 'Chi tiết dự án',
@@ -947,11 +1137,22 @@ export const portfolioContent: Record<Language, PortfolioContent> = {
         {
           type: 'work',
           icon: Briefcase,
-          title: 'JavaScript Fullstack Developer',
+          title: 'Fullstack Developer',
           org: 'Aegona',
           period: '10/2024 - Hiện tại',
-          desc: 'Tham gia phát triển ứng dụng web fullstack với ReactJS, Angular, NodeJS, Nest.js, PHP và Laravel; xây dựng REST API/GraphQL, làm việc với MySQL và hỗ trợ quy trình triển khai bằng Docker, Jenkins.',
-          tags: ['Angular', 'ReactJS', 'NodeJS', 'Nest.js', 'PHP', 'Laravel', 'MySQL', 'Docker', 'Jenkins'],
+          desc: 'Tham gia phát triển ứng dụng web fullstack với ReactJS, NextJS Angular, NodeJS, NestJS, PHP và Laravel; xây dựng REST API/GraphQL, làm việc với MySQL và hỗ trợ quy trình triển khai bằng Docker, Jenkins.',
+          tags: [
+            'Angular',
+            'ReactJS',
+            'NextJS',
+            'NodeJS',
+            'NestJS',
+            'PHP',
+            'Laravel',
+            'MySQL',
+            'Docker',
+            'Jenkins',
+          ],
           image: AegonaImg,
           imageAlt: 'Aegona',
           projectIndices: [0, 1, 2, 3, 4],
@@ -998,7 +1199,8 @@ export const portfolioContent: Record<Language, PortfolioContent> = {
           issuer: 'FPT Polytechnic Tay Nguyen',
           date: '04/2024',
           credentialId: 'FPT-LOS-EXPORT',
-          credentialUrl: 'https://xuongthuchanh.poly.edu.vn/certificate/PK02909/65d447264c768e0c1dbef624',
+          credentialUrl:
+            'https://xuongthuchanh.poly.edu.vn/certificate/PK02909/65d447264c768e0c1dbef624',
           Icon: FileCode2,
           iconColor: '#3178C6',
           bgColor: 'hsl(213 76% 48% / 0.08)',
@@ -1008,7 +1210,8 @@ export const portfolioContent: Record<Language, PortfolioContent> = {
           issuer: 'FPT Polytechnic Tay Nguyen',
           date: '04/2024',
           credentialId: 'FPT-AI-CODE',
-          credentialUrl: 'https://xuongthuchanh.poly.edu.vn/certificate/PK02909/65fbb01783e27d8e3458d8a6',
+          credentialUrl:
+            'https://xuongthuchanh.poly.edu.vn/certificate/PK02909/65fbb01783e27d8e3458d8a6',
           Icon: BadgeCheck,
           iconColor: '#06B6D4',
           bgColor: 'hsl(187 92% 43% / 0.08)',
@@ -1038,7 +1241,8 @@ export const portfolioContent: Record<Language, PortfolioContent> = {
     contact: {
       titlePrefix: 'Cùng',
       titleAccent: 'làm việc',
-      intro: 'Bạn có dự án cần triển khai hoặc muốn trao đổi cơ hội phù hợp? Tôi luôn sẵn sàng kết nối.',
+      intro:
+        'Bạn có dự án cần triển khai hoặc muốn trao đổi cơ hội phù hợp? Tôi luôn sẵn sàng kết nối.',
       labels: {
         email: 'Email',
         phone: 'Điện thoại',
@@ -1068,7 +1272,18 @@ export const portfolioContent: Record<Language, PortfolioContent> = {
       themeLabel: 'Change theme',
     },
     hero: {
-      words: ['Software Engineer', 'ReactJS', 'Angular', 'Node.js', 'NestJS', 'PHP', 'Laravel', 'MySQL', 'Docker', 'Jenkins'],
+      words: [
+        'Software Engineer',
+        'ReactJS',
+        'Angular',
+        'Node.js',
+        'NestJS',
+        'PHP',
+        'Laravel',
+        'MySQL',
+        'Docker',
+        'Jenkins',
+      ],
       badge: 'Available for new opportunities',
       titleSuffix: 'Developer',
       subtitle:
@@ -1081,8 +1296,20 @@ export const portfolioContent: Record<Language, PortfolioContent> = {
         { code: "const dev = 'Hoa';", x: '5%', y: '20%', delay: 0, depth: 0.4 },
         { code: 'npm run build', x: '75%', y: '15%', delay: 0.3, depth: 0.6 },
         { code: '@nestjs/core', x: '80%', y: '60%', delay: 0.6, depth: 0.3 },
-        { code: "import React from 'react'", x: '2%', y: '70%', delay: 0.9, depth: 0.5 },
-        { code: 'git push origin main', x: '60%', y: '80%', delay: 1.2, depth: 0.7 },
+        {
+          code: "import React from 'react'",
+          x: '2%',
+          y: '70%',
+          delay: 0.9,
+          depth: 0.5,
+        },
+        {
+          code: 'git push origin main',
+          x: '60%',
+          y: '80%',
+          delay: 1.2,
+          depth: 0.7,
+        },
       ],
     },
     sectionLabels: {
@@ -1100,7 +1327,20 @@ export const portfolioContent: Record<Language, PortfolioContent> = {
         'As a Junior Fullstack Developer, I have a strong passion for building high-speed, modern, and user-friendly web applications. My strength lies in my ability to work across the entire system — from designing scalable REST APIs and optimizing backends with PHP & Laravel to developing smooth interfaces with ReactJS & Angular.',
         'Beyond coding, I proactively explore new technologies and actively participate in tech workshops to continuously enhance my software development mindset and technical skills.',
       ],
-      tags: ['Angular', 'Git', 'Nest.js', 'NodeJS', 'ReactJS', 'Docker', 'Jenkins', 'Laravel', 'PHP', 'REST API', 'GraphQL', 'MySQL'],
+      tags: [
+        'Angular',
+        'Git',
+        'Nest.js',
+        'NodeJS',
+        'ReactJS',
+        'Docker',
+        'Jenkins',
+        'Laravel',
+        'PHP',
+        'REST API',
+        'GraphQL',
+        'MySQL',
+      ],
       traits: [
         {
           icon: Server,
@@ -1127,33 +1367,106 @@ export const portfolioContent: Record<Language, PortfolioContent> = {
     skills: {
       titlePrefix: 'Core',
       titleAccent: 'Skills',
-      intro: 'Main skills from the CV, paired with hands-on project experience.',
+      intro:
+        'Main skills from the CV, paired with hands-on project experience.',
       groups: [
         {
           category: 'Frontend',
           items: [
-            { name: 'Angular', icon: SiAngular, color: '#DD0031', level: 75, experience: '> 1 yr' },
-            { name: 'ReactJS', icon: SiReact, color: '#61DAFB', level: 86, experience: '> 1 yr' },
-            { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E', level: 86, experience: '> 1 yr' },
-            { name: 'TypeScript', icon: SiTypescript, color: '#3178C6', level: 80, experience: '> 1 yr' },
+            {
+              name: 'Angular',
+              icon: SiAngular,
+              color: '#DD0031',
+              level: 75,
+              experience: '> 1 yr',
+            },
+            {
+              name: 'ReactJS',
+              icon: SiReact,
+              color: '#61DAFB',
+              level: 86,
+              experience: '> 1 yr',
+            },
+            {
+              name: 'JavaScript',
+              icon: SiJavascript,
+              color: '#F7DF1E',
+              level: 86,
+              experience: '> 1 yr',
+            },
+            {
+              name: 'TypeScript',
+              icon: SiTypescript,
+              color: '#3178C6',
+              level: 80,
+              experience: '> 1 yr',
+            },
           ],
         },
         {
           category: 'Backend',
           items: [
-            { name: 'NodeJS', icon: SiNodedotjs, color: '#339933', level: 84, experience: '> 1 yr' },
-            { name: 'Nest.js', icon: SiNestjs, color: '#E0234E', level: 82, experience: '> 1 yr' },
-            { name: 'MySQL', icon: SiMysql, color: '#4169E1', level: 80, experience: '> 1 yr' },
-            { name: 'PHP', icon: SiPhp, color: '#777BB4', level: 70, experience: '1 yr' },
-            { name: 'Laravel', icon: SiLaravel, color: '#FF2D20', level: 70, experience: '1 yr' },
+            {
+              name: 'NodeJS',
+              icon: SiNodedotjs,
+              color: '#339933',
+              level: 84,
+              experience: '> 1 yr',
+            },
+            {
+              name: 'Nest.js',
+              icon: SiNestjs,
+              color: '#E0234E',
+              level: 82,
+              experience: '> 1 yr',
+            },
+            {
+              name: 'MySQL',
+              icon: SiMysql,
+              color: '#4169E1',
+              level: 80,
+              experience: '> 1 yr',
+            },
+            {
+              name: 'PHP',
+              icon: SiPhp,
+              color: '#777BB4',
+              level: 70,
+              experience: '1 yr',
+            },
+            {
+              name: 'Laravel',
+              icon: SiLaravel,
+              color: '#FF2D20',
+              level: 70,
+              experience: '1 yr',
+            },
           ],
         },
         {
           category: 'Tools & Workflow',
           items: [
-            { name: 'Git', icon: SiGit, color: '#F05032', level: 86, experience: '> 1 yr' },
-            { name: 'Docker', icon: SiDocker, color: '#2496ED', level: 68, experience: '1 yr' },
-            { name: 'Jenkins', icon: SiJenkins, color: '#F2C037', level: 66, experience: '1 yr' },
+            {
+              name: 'Git',
+              icon: SiGit,
+              color: '#F05032',
+              level: 86,
+              experience: '> 1 yr',
+            },
+            {
+              name: 'Docker',
+              icon: SiDocker,
+              color: '#2496ED',
+              level: 68,
+              experience: '1 yr',
+            },
+            {
+              name: 'Jenkins',
+              icon: SiJenkins,
+              color: '#F2C037',
+              level: 66,
+              experience: '1 yr',
+            },
           ],
         },
       ],
@@ -1162,7 +1475,6 @@ export const portfolioContent: Record<Language, PortfolioContent> = {
       titlePrefix: 'Featured',
       titleAccent: 'Projects',
       featuredLabel: 'featured',
-      moreGithub: 'More on GitHub',
       periodLabel: 'Status',
       viewDetail: 'View detail',
       modalTitle: 'Project detail',
@@ -1187,7 +1499,17 @@ export const portfolioContent: Record<Language, PortfolioContent> = {
           org: 'Aegona',
           period: '10/2024 - Present',
           desc: 'Building fullstack web applications with ReactJS, Angular, NodeJS, Nest.js, PHP and Laravel; implementing REST API/GraphQL, working with MySQL, and supporting deployment workflows with Docker and Jenkins.',
-          tags: ['Angular', 'ReactJS', 'NodeJS', 'Nest.js', 'PHP', 'Laravel', 'MySQL', 'Docker', 'Jenkins'],
+          tags: [
+            'Angular',
+            'ReactJS',
+            'NodeJS',
+            'Nest.js',
+            'PHP',
+            'Laravel',
+            'MySQL',
+            'Docker',
+            'Jenkins',
+          ],
           image: AegonaImg,
           imageAlt: 'Aegona',
           projectIndices: [0, 1, 2, 3, 4],
@@ -1234,7 +1556,8 @@ export const portfolioContent: Record<Language, PortfolioContent> = {
           issuer: 'FPT Polytechnic Tay Nguyen',
           date: '04/2024',
           credentialId: 'FPT-LOS-EXPORT',
-          credentialUrl: 'https://xuongthuchanh.poly.edu.vn/certificate/PK02909/65d447264c768e0c1dbef624',
+          credentialUrl:
+            'https://xuongthuchanh.poly.edu.vn/certificate/PK02909/65d447264c768e0c1dbef624',
           Icon: FileCode2,
           iconColor: '#3178C6',
           bgColor: 'hsl(213 76% 48% / 0.08)',
@@ -1244,7 +1567,8 @@ export const portfolioContent: Record<Language, PortfolioContent> = {
           issuer: 'FPT Polytechnic Tay Nguyen',
           date: '04/2024',
           credentialId: 'FPT-AI-CODE',
-          credentialUrl: 'https://xuongthuchanh.poly.edu.vn/certificate/PK02909/65fbb01783e27d8e3458d8a6',
+          credentialUrl:
+            'https://xuongthuchanh.poly.edu.vn/certificate/PK02909/65fbb01783e27d8e3458d8a6',
           Icon: BadgeCheck,
           iconColor: '#06B6D4',
           bgColor: 'hsl(187 92% 43% / 0.08)',
@@ -1274,7 +1598,8 @@ export const portfolioContent: Record<Language, PortfolioContent> = {
     contact: {
       titlePrefix: "Let's",
       titleAccent: 'Work Together',
-      intro: 'Have a project to build or a role that fits? I am open to connecting.',
+      intro:
+        'Have a project to build or a role that fits? I am open to connecting.',
       labels: {
         email: 'Email',
         phone: 'Phone',

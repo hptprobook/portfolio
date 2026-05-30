@@ -2,13 +2,13 @@ import { useRef, useState, useEffect, useMemo } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import {
   ArrowUpRight,
-  ExternalLink,
   Github,
   Globe2,
   ListChecks,
   ShieldCheck,
   X,
 } from 'lucide-react';
+import { useBodyScrollLock } from '@/hooks/use-body-scroll-lock';
 import { usePortfolio } from '@/lib/portfolio-context';
 import type { Project } from '@/data/portfolio';
 
@@ -21,13 +21,13 @@ function ProjectDetailModal({
 }) {
   const { content } = usePortfolio();
   const demoUrl = project.detail.demoUrl || project.live;
-  const DemoStatusIcon = project.detail.demoConfidential
-    ? ShieldCheck
-    : Globe2;
+  const DemoStatusIcon = project.detail.demoConfidential ? ShieldCheck : Globe2;
+  useBodyScrollLock();
 
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 overscroll-contain"
+      data-lenis-prevent=""
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -63,7 +63,7 @@ function ProjectDetailModal({
           </button>
         </div>
 
-        <div className="grid max-h-[calc(90vh-73px)] grid-cols-1 overflow-y-auto lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="grid max-h-[calc(90vh-73px)] grid-cols-1 overflow-y-auto overscroll-contain lg:grid-cols-[0.9fr_1.1fr]">
           <div className="flex items-center justify-center border-b border-border/40 bg-muted/20 lg:border-b-0 lg:border-r">
             <img
               src={project.image}
@@ -408,28 +408,6 @@ export default function Projects() {
           </div>
         </div>
       </div>
-
-      <motion.div
-        className="mt-16 flex justify-center"
-        initial={{ opacity: 0 }}
-        animate={inView ? { opacity: 1 } : {}}
-        transition={{ delay: 0.7 }}
-      >
-        <motion.a
-          href={content.profile.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors group"
-          whileHover={{ x: 4 }}
-          data-testid="btn-more-projects"
-        >
-          {content.projects.moreGithub}
-          <ExternalLink
-            size={14}
-            className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
-          />
-        </motion.a>
-      </motion.div>
 
       <AnimatePresence>
         {selectedProject ? (
