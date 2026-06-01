@@ -32,11 +32,17 @@ import { DiMsqlServer } from 'react-icons/di';
 import AegonaImg from '@/assets/images/aegona.jpg';
 import CuoiAgencyImg from '@/assets/images/cuoiagency.webp';
 import FptEduImg from '@/assets/images/fptedu.jpg';
+import FptBmtLifeFashionImg from '@/assets/images/fpt-bmt-life-fashion.svg';
+import FptTodoAppImg from '@/assets/images/fpt-todo-app.svg';
+import Fpt3000EcommerceImg from '@/assets/images/fpt-3000-ecommerce.svg';
+import FptSupportLearningItImg from '@/assets/images/fpt-support-learning-it.svg';
+import FptItStoreImg from '@/assets/images/fpt-it-store.svg';
+import FptToolExportLmsImg from '@/assets/images/fpt-tool-export-lms.svg';
 import Gamora from '@/assets/images/gamora.png';
 import VietArtSpace from '@/assets/images/vietartspace.png';
 import VaSchool from '@/assets/images/vaschool.png';
-import TimeSheetImg from '@/assets/images/vaschool.png';
-import LavishnailImg from '@/assets/images/vaschool.png';
+import TimeSheetImg from '@/assets/images/giavico.png';
+import LavishnailImg from '@/assets/images/mobile-nail-booking.png';
 
 export const languages = ['vi', 'en'] as const;
 export type Language = (typeof languages)[number];
@@ -328,15 +334,7 @@ const viProjects: Project[] = [
     period: 'Đã go-live',
     description:
       'Xây dựng nền tảng e-commerce bán tranh trực tuyến với quản lý sản phẩm, giỏ hàng, thanh toán, đơn hàng và khách hàng. Website cũng tích hợp dịch vụ in ảnh theo yêu cầu, cho phép khách hàng tải ảnh cá nhân, chọn kích thước, chất liệu in và đặt in trực tiếp.',
-    stack: [
-      stack.angular,
-      stack.laravel,
-      stack.mysql,
-      stack.typescript,
-      stack.socket,
-      stack.redis,
-      stack.elasticsearch,
-    ],
+    stack: [stack.angular, stack.laravel, stack.mysql, stack.typescript],
     github: '',
     live: '',
     featured: true,
@@ -372,7 +370,7 @@ const viProjects: Project[] = [
       stack.elasticsearch,
     ],
     github: '',
-    live: '',
+    live: 'https://www.app.gamora.vn/',
     featured: true,
     image: Gamora,
     // PROJECT_DETAIL_EDIT_MARKER vi-03-court-booking
@@ -380,8 +378,8 @@ const viProjects: Project[] = [
       overview:
         'Hệ thống booking và POS cho sân thể thao, hỗ trợ quản lý lịch đặt sân, khách hàng, bán hàng tại quầy, thanh toán và theo dõi doanh thu. Dữ liệu lịch được tổ chức theo dạng calendar để nhân viên dễ kiểm tra và cập nhật.',
       demoUrl: '',
-      demoConfidential: true,
-      demoStatus: 'Bảo mật theo yêu cầu dự án, không công khai website demo.',
+      demoConfidential: false,
+      demoStatus: '',
       responsibilities: [
         'Phát triển giao diện quản lý đặt sân bằng Angular và TypeScript.',
         'Xây dựng các màn hình calendar, cập nhật lịch đặt sân và trạng thái booking.',
@@ -407,7 +405,7 @@ const viProjects: Project[] = [
         'Hệ thống tool hỗ trợ khách hàng nhập file excel xử lý chấm công cho 1000 nhân viên, xử lý dữ liệu chấm công, tính toán lương, cập nhật lại dữ liệu hệ thống máy chấm công gốc và xuất báo cáo theo yêu cầu.',
       demoUrl: '',
       demoConfidential: true,
-      demoStatus: 'Bảo mật theo yêu cầu dự án, không công khai website demo.',
+      demoStatus: 'Dự án chưa go-live.',
       responsibilities: [
         'Xây dựng api đăng nhập, và xử lý file excel chấm công để cập nhật vào database gốc của hệ thống máy chấm công.',
         'Tham gia xây dựng giao diện, luồng tính toán lương và xuất báo cáo theo yêu cầu khách hàng.',
@@ -440,7 +438,7 @@ const viProjects: Project[] = [
         'Xây dựng hệ thống api cho ứng dụng mobile booking nail quản lý chi nhánh, dịch vụ, nhân viên, lịch làm việc và báo cáo doanh thu. Tích hợp tính năng nhắc lịch và đánh giá dịch vụ sau khi khách hàng sử dụng.',
       demoUrl: '',
       demoConfidential: true,
-      demoStatus: 'Bảo mật theo yêu cầu dự án, không công khai website demo.',
+      demoStatus: 'Dự án chưa go-live.',
       responsibilities: [
         'Xây dựng Graphql API cho ứng dụng mobile booking nail, bao gồm quản lý chi nhánh, dịch vụ, nhân viên, lịch làm việc và báo cáo doanh thu.',
         'Tích hợp Firebase và Socket.IO để hỗ trợ tính năng nhắc lịch và đánh giá dịch vụ sau khi khách hàng sử dụng.',
@@ -465,14 +463,14 @@ const viProjects: Project[] = [
     github: 'https://github.com/hptprobook/datn',
     live: '',
     featured: false,
-    image: FptEduImg,
+    image: FptBmtLifeFashionImg,
     // PROJECT_DETAIL_EDIT_MARKER vi-06-school-bmt-life-fashion
     detail: {
       overview:
         'Dự án tốt nghiệp theo nhóm, xây dựng website e-commerce thời trang với các luồng sản phẩm, giỏ hàng, đơn hàng, thông báo thời gian thực và chatbot AI.',
       demoUrl: '',
       demoConfidential: false,
-      demoStatus: 'Cập nhật URL demo nếu còn hoạt động.',
+      demoStatus: 'Website hiện không hoạt động.',
       responsibilities: [
         'Làm leader nhóm và phân chia công việc.',
         'Phát triển API cho giỏ hàng, đơn hàng và tìm kiếm.',
@@ -497,14 +495,14 @@ const viProjects: Project[] = [
     github: 'https://github.com/hptprobook/frontend-framework',
     live: '',
     featured: false,
-    image: FptEduImg,
+    image: FptTodoAppImg,
     // PROJECT_DETAIL_EDIT_MARKER vi-07-school-todo-app
     detail: {
       overview:
         'Dự án cá nhân mô phỏng Trello, tập trung vào quản lý task, board, thông báo realtime và trải nghiệm kéo thả.',
       demoUrl: '',
       demoConfidential: false,
-      demoStatus: 'Cập nhật URL demo nếu còn hoạt động.',
+      demoStatus: 'Website hiện không hoạt động.',
       responsibilities: [
         'Phát triển end-to-end từ thiết kế giao diện đến tích hợp backend.',
         'Xây dựng luồng realtime, thông báo và kéo thả task.',
@@ -528,14 +526,14 @@ const viProjects: Project[] = [
     github: 'https://github.com/hptprobook/3000',
     live: '',
     featured: false,
-    image: FptEduImg,
+    image: Fpt3000EcommerceImg,
     // PROJECT_DETAIL_EDIT_MARKER vi-08-school-3000-commerce
     detail: {
       overview:
         'Dự án e-commerce theo nhóm, bao gồm luồng mua hàng, quản lý sản phẩm, người dùng và admin dashboard.',
       demoUrl: '',
       demoConfidential: false,
-      demoStatus: 'Cập nhật URL demo nếu còn hoạt động.',
+      demoStatus: 'Website hiện không hoạt động.',
       responsibilities: [
         'Làm leader nhóm, phân tích chức năng và phân chia công việc.',
         'Phát triển API và xây dựng giao diện user/admin.',
@@ -552,7 +550,7 @@ const viProjects: Project[] = [
     github: 'https://github.com/hptprobook/trainning_equipment_2024',
     live: '',
     featured: false,
-    image: FptEduImg,
+    image: FptSupportLearningItImg,
     // PROJECT_DETAIL_EDIT_MARKER vi-09-school-support-learning-it
     detail: {
       overview:
@@ -576,14 +574,14 @@ const viProjects: Project[] = [
     github: 'https://github.com/hptprobook/DuAnMau-NoCode',
     live: '',
     featured: false,
-    image: FptEduImg,
+    image: FptItStoreImg,
     // PROJECT_DETAIL_EDIT_MARKER vi-10-school-it-store
     detail: {
       overview:
         'Dự án website bán hàng cho thiết bị điện tử, hỗ trợ xác thực người dùng, giỏ hàng và admin dashboard.',
       demoUrl: '',
       demoConfidential: false,
-      demoStatus: 'Cập nhật URL demo nếu còn hoạt động.',
+      demoStatus: 'Website hiện không hoạt động.',
       responsibilities: [
         'Phát triển giao diện user và admin.',
         'Xây dựng các luồng xác thực, giỏ hàng và quản lý dữ liệu.',
@@ -599,7 +597,7 @@ const viProjects: Project[] = [
     github: '',
     live: 'https://chromewebstore.google.com/detail/export-score/nligchepkpodlccjkjliepebgloolfee?authuser=0&hl=vi',
     featured: false,
-    image: FptEduImg,
+    image: FptToolExportLmsImg,
     // PROJECT_DETAIL_EDIT_MARKER vi-11-school-tool-export-lms
     detail: {
       overview:
@@ -620,10 +618,18 @@ const enProjects: Project[] = [
   {
     number: '01',
     title: 'School Management System',
-    period: 'In development',
+    period: 'Live',
     description:
-      'Developing a multi-branch school management system for students, parents, tuition fees, classes, and academic information. The system includes online tuition payment, student/parent sales operations, and a Zalo Mini App for information lookup, payment, and parent-school communication.',
-    stack: [stack.react, stack.laravel, stack.mysql, stack.typescript],
+      'Developed a multi-branch school management system for student, parent, tuition, and class operations. The system includes online tuition payment, sales management, and a Zalo Mini App for information lookup, payment, and parent-school communication.',
+    stack: [
+      stack.react,
+      stack.nest,
+      stack.mysql,
+      stack.typescript,
+      stack.redis,
+      stack.elasticsearch,
+      stack.socket,
+    ],
     github: '',
     live: '',
     featured: true,
@@ -631,26 +637,28 @@ const enProjects: Project[] = [
     // PROJECT_DETAIL_EDIT_MARKER en-01-school-management
     detail: {
       overview:
-        'A multi-branch school management system that connects student, parent, class, tuition, and internal operation data. The project also includes tuition payment flows, sales management, and a Zalo Mini App for parent-facing information lookup.',
+        'A multi-branch school management system with more than 7,000 parents and 10,000 students, connecting student, parent, class, tuition, internal operation, and e-commerce data. The project also includes tuition payment flows, sales management, and a Zalo Mini App for parent-facing information lookup.',
       demoUrl: '',
       demoConfidential: true,
       demoStatus:
         'Confidential by project requirement, so the demo website is not public.',
       responsibilities: [
         'Developed admin interfaces with ReactJS and TypeScript.',
-        'Built business screens for students, parents, classes, and tuition fees.',
-        'Integrated Laravel APIs, including forms, data tables, and loading states.',
-        'Supported testing for payment, information lookup, and Zalo Mini App flows.',
+        'Built business screens for students, parents, classes, and tuition fees by semester/school year.',
+        'Integrated Nest.js/MySQL APIs, including forms, data tables, and loading states.',
+        'Implemented payment management, revenue reports, notifications, and student stationery sales flows.',
+        'Optimized system performance for large datasets and concurrent users.',
+        'Used Redis for data caching and Elasticsearch for fast search across the school management system.',
       ],
     },
   },
   {
     number: '02',
     title: 'Online Painting Store',
-    period: 'In development',
+    period: 'Live',
     description:
-      'Building an e-commerce website for selling paintings online with product management, cart, payment, orders, and customer management. The platform also integrates on-demand photo printing so customers can upload personal images, choose print sizes/materials, and order directly.',
-    stack: [stack.angular, stack.php, stack.mysql, stack.typescript],
+      'Built an e-commerce website for selling paintings online with product management, cart, payment, orders, and customer management. The platform also integrates on-demand photo printing so customers can upload personal images, choose print sizes/materials, and order directly.',
+    stack: [stack.angular, stack.laravel, stack.mysql, stack.typescript],
     github: '',
     live: '',
     featured: true,
@@ -659,14 +667,13 @@ const enProjects: Project[] = [
     detail: {
       overview:
         'An e-commerce website for selling paintings online, with product, cart, order, customer, and on-demand photo printing workflows. Customers can upload personal images, choose print size/material, and submit print orders.',
-      demoUrl: '',
+      demoUrl: 'https://www.vietartspace.com/',
       demoConfidential: false,
-      demoStatus:
-        'Public demo website, update the demoUrl field here when the URL is ready.',
+      demoStatus: 'https://www.vietartspace.com/',
       responsibilities: [
         'Built the user interface with Angular and TypeScript.',
         'Developed product listing, product detail, cart, and checkout flows.',
-        'Integrated PHP/MySQL APIs for product, customer, and order data.',
+        'Integrated Laravel/MySQL APIs for product, customer, and order data.',
         'Designed the upload, print option selection, and print order request experience.',
       ],
     },
@@ -674,12 +681,20 @@ const enProjects: Project[] = [
   {
     number: '03',
     title: 'Sports Court Booking System',
-    period: 'In development',
+    period: 'Live',
     description:
-      'Developing a booking and POS system for sports court operations, including customer management, calendar-based bookings, real-time schedule updates, counter sales, payment processing, and revenue tracking.',
-    stack: [stack.angular, stack.nest, stack.mysql, stack.typescript],
+      'Developed a booking and POS system for sports court operations, including customer management, calendar-based bookings, real-time schedule updates, counter sales, payment processing, and revenue tracking.',
+    stack: [
+      stack.angular,
+      stack.nest,
+      stack.mysql,
+      stack.typescript,
+      stack.socket,
+      stack.redis,
+      stack.elasticsearch,
+    ],
     github: '',
-    live: '',
+    live: 'https://www.app.gamora.vn/',
     featured: true,
     image: Gamora,
     // PROJECT_DETAIL_EDIT_MARKER en-03-court-booking
@@ -687,9 +702,8 @@ const enProjects: Project[] = [
       overview:
         'A booking and POS system for sports court operations, covering booking schedules, customers, counter sales, payments, and revenue tracking. Booking data is organized in a calendar format so staff can check and update schedules quickly.',
       demoUrl: '',
-      demoConfidential: true,
-      demoStatus:
-        'Confidential by project requirement, so the demo website is not public.',
+      demoConfidential: false,
+      demoStatus: '',
       responsibilities: [
         'Developed the sports court booking admin UI with Angular and TypeScript.',
         'Built calendar screens, booking updates, and booking status flows.',
@@ -700,58 +714,66 @@ const enProjects: Project[] = [
   },
   {
     number: '04',
-    title: 'Aegona Project 01',
-    period: 'Updating',
+    title: 'Timesheet Tool',
+    period: 'In development',
     description:
-      'Placeholder project under Aegona, added so the details can be updated later.',
-    stack: [stack.react, stack.node, stack.mysql, stack.typescript],
+      'A tool that helps customers import Excel attendance files for 1,000 employees, process attendance data, calculate salaries, update the original timekeeping database, and export custom reports.',
+    stack: [stack.next, stack.mssql, stack.typescript],
     github: '',
     live: '',
     featured: false,
-    image: AegonaImg,
+    image: TimeSheetImg,
     // PROJECT_DETAIL_EDIT_MARKER en-04-aegona-placeholder-01
     detail: {
       overview:
-        'Placeholder for Aegona Project 01. Update the goal, context, scope, and business domain here.',
+        'A tool that helps customers import Excel attendance files for 1,000 employees, process attendance data, calculate salaries, update the original timekeeping database, and export reports based on customer requirements.',
       demoUrl: '',
       demoConfidential: true,
-      demoStatus:
-        'Confidential by project requirement, so the demo website is not public.',
+      demoStatus: 'The project has not gone live yet.',
       responsibilities: [
-        'Update my role in this project.',
-        'Update the screens, APIs, or modules I worked on.',
+        'Built login APIs and Excel attendance file processing to update the original timekeeping database.',
+        'Participated in building the interface, salary calculation flow, and custom report export features.',
       ],
     },
   },
   {
     number: '05',
-    title: 'Aegona Project 02',
-    period: 'Updating',
+    title: 'Mobile Nail Booking App',
+    period: 'In development',
     description:
-      'Placeholder project under Aegona, added so the details can be updated later.',
-    stack: [stack.angular, stack.nest, stack.mysql, stack.typescript],
+      'A nail appointment booking management system that supports mobile booking, branch, service, employee, work schedule, and revenue report management. The system also integrates reminders and post-service reviews.',
+    stack: [
+      stack.angular,
+      stack.nest,
+      stack.mysql,
+      stack.typescript,
+      stack.firebase,
+      stack.socket,
+      stack.redis,
+      stack.elasticsearch,
+    ],
     github: '',
     live: '',
     featured: false,
-    image: AegonaImg,
+    image: LavishnailImg,
     // PROJECT_DETAIL_EDIT_MARKER en-05-aegona-placeholder-02
     detail: {
       overview:
-        'Placeholder for Aegona Project 02. Update the goal, context, scope, and business domain here.',
+        'Built the API system for a mobile nail booking app, including branch, service, employee, work schedule, and revenue report management. The project also integrates reminder and post-service review features.',
       demoUrl: '',
       demoConfidential: true,
-      demoStatus:
-        'Confidential by project requirement, so the demo website is not public.',
+      demoStatus: 'The project has not gone live yet.',
       responsibilities: [
-        'Update my role in this project.',
-        'Update the screens, APIs, or modules I worked on.',
+        'Built GraphQL APIs for branch, service, employee, work schedule, and revenue report management.',
+        'Integrated Firebase and Socket.IO to support reminders and post-service reviews.',
+        'Integrated Redis and Elasticsearch to support fast search for services and employees.',
       ],
     },
   },
   {
     number: '06',
     title: 'BMT Life Fashion E-Commerce',
-    period: 'In-school project',
+    period: 'Project at FPT Polytechnic',
     description:
       'A fashion e-commerce platform with realtime cart/orders and an AI chatbot for user support.',
     stack: [
@@ -765,14 +787,14 @@ const enProjects: Project[] = [
     github: 'https://github.com/hptprobook/datn',
     live: '',
     featured: false,
-    image: FptEduImg,
+    image: FptBmtLifeFashionImg,
     // PROJECT_DETAIL_EDIT_MARKER en-06-school-bmt-life-fashion
     detail: {
       overview:
         'A team graduation project that built a fashion e-commerce website with product, cart, order, realtime notification, and AI chatbot flows.',
       demoUrl: '',
       demoConfidential: false,
-      demoStatus: 'Update the demo URL if it is still available.',
+      demoStatus: 'The website is currently unavailable.',
       responsibilities: [
         'Led the team and split implementation tasks.',
         'Developed APIs for cart, orders, and search.',
@@ -783,7 +805,7 @@ const enProjects: Project[] = [
   {
     number: '07',
     title: 'Todo App',
-    period: 'In-school project',
+    period: 'Project at FPT Polytechnic',
     description:
       'A Trello-inspired task management app with realtime updates, notifications, and drag-and-drop interactions.',
     stack: [
@@ -797,14 +819,14 @@ const enProjects: Project[] = [
     github: 'https://github.com/hptprobook/frontend-framework',
     live: '',
     featured: false,
-    image: FptEduImg,
+    image: FptTodoAppImg,
     // PROJECT_DETAIL_EDIT_MARKER en-07-school-todo-app
     detail: {
       overview:
         'An individual Trello-style project focused on task management, boards, realtime notifications, and drag-and-drop UX.',
       demoUrl: '',
       demoConfidential: false,
-      demoStatus: 'Update the demo URL if it is still available.',
+      demoStatus: 'The website is currently unavailable.',
       responsibilities: [
         'Developed the app end-to-end from UI design to backend integration.',
         'Built realtime, notification, and drag-and-drop task flows.',
@@ -814,7 +836,7 @@ const enProjects: Project[] = [
   {
     number: '08',
     title: '3000 E-Commerce Website',
-    period: 'In-school project',
+    period: 'Project at FPT Polytechnic',
     description:
       'A team e-commerce website with user-facing shopping features and an admin panel.',
     stack: [
@@ -828,14 +850,14 @@ const enProjects: Project[] = [
     github: 'https://github.com/hptprobook/3000',
     live: '',
     featured: false,
-    image: FptEduImg,
+    image: Fpt3000EcommerceImg,
     // PROJECT_DETAIL_EDIT_MARKER en-08-school-3000-commerce
     detail: {
       overview:
         'A team e-commerce project covering shopping flows, product management, users, and an admin dashboard.',
       demoUrl: '',
       demoConfidential: false,
-      demoStatus: 'Update the demo URL if it is still available.',
+      demoStatus: 'The website is currently unavailable.',
       responsibilities: [
         'Led the team, analyzed features, and split tasks.',
         'Developed APIs and built user/admin interfaces.',
@@ -845,14 +867,14 @@ const enProjects: Project[] = [
   {
     number: '09',
     title: 'Support Learning IT',
-    period: 'In-school project',
+    period: 'Project at FPT Polytechnic',
     description:
       'An AI-powered code debugging and optimization tool built for a self-made training equipment competition in Dak Lak.',
     stack: [stack.ai, stack.react, stack.node, stack.javascript],
     github: 'https://github.com/hptprobook/trainning_equipment_2024',
     live: '',
     featured: false,
-    image: FptEduImg,
+    image: FptSupportLearningItImg,
     // PROJECT_DETAIL_EDIT_MARKER en-09-school-support-learning-it
     detail: {
       overview:
@@ -869,21 +891,21 @@ const enProjects: Project[] = [
   {
     number: '10',
     title: 'IT Store',
-    period: 'In-school project',
+    period: 'Project at FPT Polytechnic',
     description:
       'An electronics e-commerce website with authentication, cart, and admin dashboard features.',
     stack: [stack.react, stack.javascript, stack.material],
     github: 'https://github.com/hptprobook/DuAnMau-NoCode',
     live: '',
     featured: false,
-    image: FptEduImg,
+    image: FptItStoreImg,
     // PROJECT_DETAIL_EDIT_MARKER en-10-school-it-store
     detail: {
       overview:
         'An electronics store website supporting user authentication, cart flows, and an admin dashboard.',
       demoUrl: '',
       demoConfidential: false,
-      demoStatus: 'Update the demo URL if it is still available.',
+      demoStatus: 'The website is currently unavailable.',
       responsibilities: [
         'Developed user and admin interfaces.',
         'Built authentication, cart, and data management flows.',
@@ -893,13 +915,13 @@ const enProjects: Project[] = [
   {
     number: '11',
     title: 'Tool Export LMS',
-    period: 'In-school project',
+    period: 'Project at FPT Polytechnic',
     description: 'A Chrome extension for exporting LMS grades to Excel.',
     stack: [stack.chrome, stack.javascript],
     github: '',
     live: 'https://chromewebstore.google.com/detail/export-score/nligchepkpodlccjkjliepebgloolfee?authuser=0&hl=vi',
     featured: false,
-    image: FptEduImg,
+    image: FptToolExportLmsImg,
     // PROJECT_DETAIL_EDIT_MARKER en-11-school-tool-export-lms
     detail: {
       overview:
@@ -1324,8 +1346,7 @@ export const portfolioContent: Record<Language, PortfolioContent> = {
       headingTop: 'Building web products',
       headingAccent: 'from API to interface.',
       paragraphs: [
-        'As a Junior Fullstack Developer, I have a strong passion for building high-speed, modern, and user-friendly web applications. My strength lies in my ability to work across the entire system — from designing scalable REST APIs and optimizing backends with PHP & Laravel to developing smooth interfaces with ReactJS & Angular.',
-        'Beyond coding, I proactively explore new technologies and actively participate in tech workshops to continuously enhance my software development mindset and technical skills.',
+        'As a Junior Fullstack Developer, I have a strong passion for building fast, modern, and user-friendly web applications. My strength is the ability to work across the whole system, from designing REST APIs and optimizing backends with PHP, Laravel, Node.js, and NestJS to building smooth interfaces with ReactJS, NextJS, and Angular. Outside work, I regularly explore new technologies and join IT workshops to keep improving my software development mindset and technical skills.',
       ],
       tags: [
         'Angular',
@@ -1345,7 +1366,7 @@ export const portfolioContent: Record<Language, PortfolioContent> = {
         {
           icon: Server,
           title: 'Fullstack Developer',
-          desc: 'Able to work on both Node.js/NestJS backends and React/Angular frontends.',
+          desc: 'Able to work on PHP/Laravel and Node.js/NestJS backends with React/Next/Angular frontends.',
         },
         {
           icon: Code2,
@@ -1388,18 +1409,18 @@ export const portfolioContent: Record<Language, PortfolioContent> = {
               experience: '> 1 yr',
             },
             {
-              name: 'JavaScript',
-              icon: SiJavascript,
-              color: '#F7DF1E',
-              level: 86,
-              experience: '> 1 yr',
-            },
-            {
               name: 'TypeScript',
               icon: SiTypescript,
               color: '#3178C6',
               level: 80,
               experience: '> 1 yr',
+            },
+            {
+              name: 'NextJS',
+              icon: SiI18Next,
+              color: '#3178C6',
+              level: 80,
+              experience: '< 1 yr',
             },
           ],
         },
@@ -1502,6 +1523,7 @@ export const portfolioContent: Record<Language, PortfolioContent> = {
           tags: [
             'Angular',
             'ReactJS',
+            'NextJS',
             'NodeJS',
             'Nest.js',
             'PHP',

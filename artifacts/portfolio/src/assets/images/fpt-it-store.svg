@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">IT Store</title>
+  <desc id="desc">Symbolic portfolio thumbnail for an electronics store school project.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#061018"/>
+      <stop offset=".5" stop-color="#111827"/>
+      <stop offset="1" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#818cf8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g transform="translate(140 165)">
+    <rect width="660" height="560" rx="46" fill="#0b1220" stroke="#1f3b45" stroke-width="3"/>
+    <g transform="translate(90 95)" fill="none" stroke="#f8fafc" stroke-width="18" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="20" y="0" width="240" height="150" rx="18"/>
+      <path d="M100 180h80M70 210h140"/>
+      <rect x="340" y="0" width="92" height="180" rx="24"/>
+      <path d="M362 148h48"/>
+      <path d="M75 330c0-62 90-62 90 0v52c0 28-42 28-42 0v-52M75 330v52c0 28-42 28-42 0v-52c0-62 42-92 132-92s132 30 132 92v52c0 28-42 28-42 0v-52"/>
+      <circle cx="412" cy="335" r="70"/>
+      <path d="M412 292v43l34 24"/>
+    </g>
+    <g transform="translate(86 460)">
+      <rect width="120" height="58" rx="18" fill="url(#accent)"/>
+      <rect x="158" width="120" height="58" rx="18" fill="#172033"/>
+      <rect x="316" width="120" height="58" rx="18" fill="#172033"/>
+    </g>
+  </g>
+  <g transform="translate(895 270)">
+    <text x="0" y="0" fill="#67e8f9" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="8">SCHOOL PROJECT</text>
+    <text x="0" y="112" fill="#f8fafc" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="104" font-weight="850">IT Store</text>
+    <text x="0" y="188" fill="#94a3b8" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="34" font-weight="600">Electronics commerce</text>
+    <g transform="translate(0 268)" fill="none" stroke="url(#accent)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M0 0h76l26 86h186"/>
+      <circle cx="132" cy="128" r="16"/>
+      <circle cx="252" cy="128" r="16"/>
+    </g>
+  </g>
+</svg>

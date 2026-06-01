@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">3000 E-Commerce Website</title>
+  <desc id="desc">Symbolic portfolio thumbnail for an e-commerce school project.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07111c"/>
+      <stop offset=".5" stop-color="#111827"/>
+      <stop offset="1" stop-color="#18213b"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#a78bfa"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <path d="M1320 80v720M1400 80v720M1480 80v720M1240 160h320M1240 240h320M1240 320h320M1240 400h320M1240 480h320M1240 560h320M1240 640h320" stroke="#22d3ee" stroke-opacity=".08" stroke-width="2"/>
+  <g transform="translate(145 170)">
+    <rect width="640" height="560" rx="44" fill="#0b1220" stroke="#1f3b45" stroke-width="3"/>
+    <g transform="translate(80 95)" fill="none" stroke="url(#accent)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M0 0h90l34 160h270"/>
+      <path d="M142 52h290l-42 108H164"/>
+      <circle cx="184" cy="224" r="28"/>
+      <circle cx="356" cy="224" r="28"/>
+    </g>
+    <g transform="translate(84 390)">
+      <rect width="130" height="110" rx="18" fill="#f8fafc"/>
+      <rect x="255" width="130" height="110" rx="18" fill="#f8fafc"/>
+      <path d="M38 40h56M38 70h36M293 40h56M293 70h36" stroke="#64748b" stroke-width="12" stroke-linecap="round"/>
+      <rect x="445" width="70" height="110" rx="18" fill="url(#accent)" opacity=".9"/>
+    </g>
+  </g>
+  <g transform="translate(865 250)">
+    <text x="0" y="0" fill="#67e8f9" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="8">SCHOOL PROJECT</text>
+    <text x="0" y="104" fill="#f8fafc" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="96" font-weight="850">3000</text>
+    <text x="0" y="194" fill="#f8fafc" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="72" font-weight="850">E-Commerce</text>
+    <text x="0" y="270" fill="#94a3b8" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="34" font-weight="600">Storefront + admin</text>
+    <g transform="translate(0 335)">
+      <rect width="360" height="88" rx="22" fill="#0b1220" stroke="#2dd4bf" stroke-opacity=".55"/>
+      <circle cx="54" cy="44" r="18" fill="#22d3ee"/>
+      <path d="M100 35h200M100 58h130" stroke="#94a3b8" stroke-width="12" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>

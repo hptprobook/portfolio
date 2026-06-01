@@ -1,6 +1,15 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { X, Layers, GitBranch, ExternalLink, ListChecks } from 'lucide-react';
+import {
+  X,
+  Layers,
+  GitBranch,
+  ExternalLink,
+  ListChecks,
+  Globe2,
+  Maximize2,
+  ShieldCheck,
+} from 'lucide-react';
 import { useBodyScrollLock } from '@/hooks/use-body-scroll-lock';
 import { usePortfolio } from '@/lib/portfolio-context';
 import type { Project, TimelineItem } from '@/data/portfolio';
@@ -14,7 +23,12 @@ function ProjectsModal({
 }) {
   const { content } = usePortfolio();
   const [active, setActive] = useState(0);
+  const [imagePreview, setImagePreview] = useState<Project | null>(null);
   const current = items[active] ?? items[0];
+  const demoUrl = current?.detail.demoUrl || current?.live;
+  const DemoStatusIcon = current?.detail.demoConfidential
+    ? ShieldCheck
+    : Globe2;
   useBodyScrollLock();
 
   if (!current) return null;
@@ -104,6 +118,26 @@ function ProjectsModal({
                 exit={{ opacity: 0, y: -12 }}
                 transition={{ duration: 0.25 }}
               >
+                <button
+                  type="button"
+                  className="group/preview relative mb-5 block aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-muted/30 text-left"
+                  onClick={() => setImagePreview(current)}
+                  aria-label={`${content.experience.preview}: ${current.title}`}
+                >
+                  <img
+                    src={current.image}
+                    alt={current.title}
+                    className="h-full w-full object-contain transition-transform duration-500 group-hover/preview:scale-[1.03]"
+                    loading="lazy"
+                  />
+                  <span className="absolute right-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-lg border border-white/20 bg-black/55 text-white shadow-lg transition-colors group-hover/preview:bg-black/75">
+                    <Maximize2 size={15} />
+                  </span>
+                  <span className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/65 to-transparent px-3 pb-3 pt-8 font-mono text-xs text-white/85 opacity-0 transition-opacity group-hover/preview:opacity-100">
+                    {content.experience.preview}
+                  </span>
+                </button>
+
                 <div className="flex items-center gap-2 mb-5">
                   {items.map((_, i) => (
                     <button
@@ -133,6 +167,32 @@ function ProjectsModal({
                 <p className="text-sm text-muted-foreground leading-relaxed mb-5">
                   {current.detail.overview || current.description}
                 </p>
+
+                <div className="mb-6 rounded-xl border border-border/50 bg-card/70 p-4">
+                  <div className="mb-3 flex items-center gap-2 text-sm font-medium text-foreground">
+                    <Globe2 size={16} className="text-primary" />
+                    {content.projects.demoLabel}
+                  </div>
+                  {demoUrl ? (
+                    <a
+                      href={demoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex max-w-full items-center gap-1.5 rounded-lg border border-primary/30 px-3 py-2 text-xs font-medium text-primary transition-colors hover:bg-primary/10"
+                    >
+                      <span className="truncate">{demoUrl}</span>
+                      <ExternalLink size={11} className="shrink-0" />
+                    </a>
+                  ) : (
+                    <div className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <DemoStatusIcon
+                        size={16}
+                        className="mt-0.5 shrink-0 text-primary"
+                      />
+                      <span>{current.detail.demoStatus}</span>
+                    </div>
+                  )}
+                </div>
 
                 <div className="mb-6 rounded-xl border border-border/50 bg-card/70 p-4">
                   <div className="mb-3 flex items-center gap-2 text-sm font-medium text-foreground">
@@ -192,6 +252,41 @@ function ProjectsModal({
             </AnimatePresence>
           </div>
         </div>
+
+        <AnimatePresence>
+          {imagePreview ? (
+            <motion.div
+              className="fixed inset-0 z-[60] flex items-center justify-center bg-black/85 p-4 backdrop-blur-sm"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setImagePreview(null)}
+            >
+              <motion.div
+                className="relative max-h-[92vh] w-full max-w-6xl overflow-hidden rounded-xl shadow-2xl"
+                initial={{ scale: 0.92, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.92, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <img
+                  src={imagePreview.image}
+                  alt={imagePreview.title}
+                  className="max-h-[92vh] w-full bg-background object-contain"
+                />
+                <button
+                  type="button"
+                  className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-lg bg-black/60 text-white transition-colors hover:bg-black/80"
+                  onClick={() => setImagePreview(null)}
+                  aria-label={content.projects.closeLabel}
+                >
+                  <X size={16} />
+                </button>
+              </motion.div>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
       </motion.div>
     </motion.div>
   );
